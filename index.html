@@ -27,15 +27,15 @@
         input { background: #0f172a; color: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 10px; font-size: 14px; outline: none; width: 100%; }
 
         .btn-row { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
-        button { padding: 10px 14px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 11px; transition: all 0.2s; }
+        button { padding: 10px 14px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 11px; transition: 0.2s; }
 
         .btn-add { background: var(--success); color: #fff; }
-        .btn-save { background: #f59e0b; color: #fff; } /* Orange */
+        .btn-save { background: #f59e0b; color: #fff; }
         .btn-email { background: var(--accent); color: #0f172a; }
         .btn-reset { background: transparent; border: 1px solid var(--danger); color: var(--danger); }
 
         .table-container { padding: 10px; overflow-x: auto; }
-        table { border-collapse: collapse; width: 100%; background: var(--surface); border-radius: 8px; overflow: hidden; }
+        table { border-collapse: collapse; width: 100%; background: var(--surface); border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
         th { background: #111827; color: var(--text-muted); padding: 12px 4px; font-size: 10px; }
         td { border-bottom: 1px solid var(--border); padding: 10px 2px; text-align: center; }
 
@@ -46,11 +46,12 @@
         .total-row { background: var(--accent) !important; color: #0f172a !important; font-weight: 800; }
         
         /* History Section */
-        .history-section { padding: 20px 15px; background: #0f172a; }
-        .history-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 5px;}
-        .history-card { background: var(--surface); padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--accent); }
-        .history-card h4 { margin: 0 0 5px 0; display: flex; justify-content: space-between; }
-        .history-card p { margin: 2px 0; color: var(--text-muted); font-size: 12px; }
+        .history-section { padding: 20px 15px; background: #0f172a; border-top: 2px solid var(--border); }
+        .history-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: var(--accent); }
+        .history-card { background: var(--surface); padding: 15px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid var(--accent); position: relative; }
+        .history-card h4 { margin: 0 0 5px 0; display: flex; justify-content: space-between; align-items: center; }
+        .history-card p { margin: 5px 0; color: var(--text-muted); font-size: 13px; line-height: 1.4; }
+        .del-hist { color: var(--danger); font-size: 10px; cursor: pointer; border: 1px solid var(--danger); padding: 2px 6px; border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -67,10 +68,10 @@
     <div class="btn-row">
         <div>
             <button class="btn-add" onclick="addP()">+ Player</button>
-            <button class="btn-save" onclick="saveToHistory()">💾 Finish & Archive</button>
+            <button class="btn-save" onclick="saveToHistory()">💾 Archive</button>
             <button class="btn-email" onclick="emailOut()">Email</button>
         </div>
-        <button class="btn-reset" onclick="wipe()">Clear Card</button>
+        <button class="btn-reset" onclick="wipe()">Clear</button>
     </div>
 </div>
 
@@ -79,17 +80,17 @@
 </div>
 
 <div class="history-section">
-    <div class="history-title">Round History</div>
+    <div class="history-title">Round History Archive</div>
     <div id="history-log"></div>
 </div>
 
 <script>
-    var STORAGE_KEY = "SCORE_STROKE_TRACKER_V14";
+    var STORAGE_KEY = "SCORE_STROKE_TRACKER_V15";
     var golfData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
         course: "", date: "", players: [],
         pars: [4,4,4,3,4,5,4,4,3, 4,4,4,3,4,5,3,4,4],
         si: [9,13,7,17,3,1,15,5,11, 10,14,2,16,6,18,8,4,12],
-        history: [] // New archive storage
+        history: []
     };
 
     function updateHeader() {
@@ -99,45 +100,61 @@
     }
 
     function addP() {
-        var n = prompt("Enter Player Name:");
+        var n = prompt("Player Name:");
         if(!n) return;
-        var h = prompt("Enter Handicap:", "0");
+        var h = prompt("Handicap:", "0");
         golfData.players.push({name: n, hcp: parseInt(h)||0, scores: new Array(18).fill(0)});
         saveAndRender();
     }
 
-    function saveToHistory() {
-        if(golfData.players.length === 0) return alert("Add players first.");
-        if(!confirm("Finish round and move to history? This clears the current card.")) return;
-
-        // Capture results
-        let summary = golfData.players.map(p => {
-            let pts = p.scores.reduce((sum, s, i) => sum + calcPts(golfData.players.indexOf(p), i, s), 0);
-            return `${p.name}: ${pts}pts`;
-        }).join(" | ");
-
-        let roundRecord = {
-            course: golfData.course || "Unknown Course",
-            date: golfData.date || new Date().toLocaleDateString(),
-            result: summary
-        };
-
-        golfData.history.unshift(roundRecord); // Add to start of history
-        golfData.players = []; // Reset current card
-        golfData.course = "";
-        golfData.date = "";
-        saveAndRender();
-    }
-
+    // CRITICAL: Restored the instant Stableford update logic
     function updateVal(type, hIdx, pIdx, val) {
         var num = parseInt(val) || 0;
         if(type === 'course') golfData.pars[hIdx] = num;
         if(type === 'si') golfData.si[hIdx] = num;
         if(type === 'score') golfData.players[pIdx].scores[hIdx] = num;
+        
         localStorage.setItem(STORAGE_KEY, JSON.stringify(golfData));
         
+        // Update the visual point label immediately
+        if(type === 'score' || type === 'course' || type === 'si') {
+            golfData.players.forEach((p, pi) => {
+                var el = document.getElementById('pts-'+pi+'-'+hIdx);
+                if(el) el.innerText = calcPts(pi, hIdx, p.scores[hIdx]) + "pts";
+            });
+        }
+        
+        // Re-calculate totals after a short delay so typing isn't interrupted
         clearTimeout(window.renderTimer);
-        window.renderTimer = setTimeout(render, 1500); 
+        window.renderTimer = setTimeout(render, 2000); 
+    }
+
+    function saveToHistory() {
+        if(golfData.players.length === 0) return alert("No players to archive.");
+        if(!confirm("Archive this round? Current card will be cleared.")) return;
+
+        let res = golfData.players.map(p => {
+            let pts = p.scores.reduce((sum, s, i) => sum + calcPts(golfData.players.indexOf(p), i, s), 0);
+            return `<strong>${p.name}</strong>: ${pts}pts`;
+        }).join("<br>");
+
+        golfData.history.unshift({
+            course: golfData.course || "No Course Name",
+            date: golfData.date || new Date().toLocaleDateString(),
+            result: res,
+            id: Date.now()
+        });
+
+        golfData.players = []; 
+        golfData.course = "";
+        golfData.date = "";
+        saveAndRender();
+    }
+
+    function deleteHistory(id) {
+        if(!confirm("Delete this record?")) return;
+        golfData.history = golfData.history.filter(h => h.id !== id);
+        saveAndRender();
     }
 
     function saveAndRender() {
@@ -145,7 +162,7 @@
         render();
     }
 
-    function wipe() { if(confirm("Clear current scorecard?")) { golfData.players=[]; saveAndRender(); } }
+    function wipe() { if(confirm("Clear current card?")) { golfData.players=[]; saveAndRender(); } }
 
     function calcPts(pIdx, hIdx, score) {
         if(!score || score <= 0) return 0;
@@ -158,21 +175,20 @@
         document.getElementById('cName').value = golfData.course;
         document.getElementById('cDate').value = golfData.date;
 
-        // Render Current Card
         if(golfData.players.length === 0) {
-            document.getElementById('app').innerHTML = "<div style='text-align:center; padding:30px; color:var(--text-muted);'>No active round. Add players to start.</div>";
+            document.getElementById('app').innerHTML = "<div style='text-align:center; padding:40px; color:var(--text-muted);'>No active round. Add players to begin.</div>";
         } else {
             var html = "<table><tr><th>Hole</th><th>Par</th><th>SI</th>";
             golfData.players.forEach(p => { html += "<th>" + p.name + "</th>"; });
             html += "</tr>";
             for(var h=0; h<18; h++) {
                 if(h === 9) html += genSumRow("OUT", 0, 8);
-                html += "<tr><td>"+(h+1)+"</td>" +
-                    "<td><input type='number' value='"+golfData.pars[h]+"' style='width:25px; border:none; background:none; text-align:center; color:#fbbf24;' oninput='updateVal(\"course\","+h+",0,this.value)'></td>" +
-                    "<td><input type='number' value='"+golfData.si[h]+"' style='width:25px; border:none; background:none; text-align:center; color:#f87171;' oninput='updateVal(\"si\","+h+",0,this.value)'></td>";
+                html += "<tr><td style='color:var(--text-muted); font-weight:800;'>"+(h+1)+"</td>" +
+                    "<td><input type='number' value='"+golfData.pars[h]+"' style='width:25px; border:none; background:none; text-align:center; color:#fbbf24; font-weight:bold;' oninput='updateVal(\"course\","+h+",0,this.value)'></td>" +
+                    "<td><input type='number' value='"+golfData.si[h]+"' style='width:25px; border:none; background:none; text-align:center; color:#f87171; font-weight:bold;' oninput='updateVal(\"si\","+h+",0,this.value)'></td>";
                 golfData.players.forEach((p, pi) => {
                     var s = p.scores[h] || "";
-                    html += "<td><input type='number' class='score-in' value='"+s+"' oninput='updateVal(\"score\","+h+","+pi+",this.value)'><span class='pts-label'>"+calcPts(pi, h, s)+"pts</span></td>";
+                    html += "<td><input type='number' class='score-in' value='"+s+"' oninput='updateVal(\"score\","+h+","+pi+",this.value)'><span id='pts-"+pi+"-"+h+"' class='pts-label'>"+calcPts(pi, h, s)+"pts</span></td>";
                 });
                 html += "</tr>";
             }
@@ -181,37 +197,37 @@
             document.getElementById('app').innerHTML = html + "</table>";
         }
 
-        // Render History
-        var histHtml = "";
+        var hLog = "";
         golfData.history.forEach(h => {
-            histHtml += `<div class="history-card">
-                <h4>${h.course} <span>${h.date}</span></h4>
+            hLog += `<div class="history-card">
+                <h4>${h.course} <span style="font-size:11px; color:var(--accent)">${h.date}</span></h4>
                 <p>${h.result}</p>
+                <span class="del-hist" onclick="deleteHistory(${h.id})">Delete</span>
             </div>`;
         });
-        document.getElementById('history-log').innerHTML = histHtml || "<p style='color:#555'>No saved rounds yet.</p>";
+        document.getElementById('history-log').innerHTML = hLog || "<p style='color:#444'>No history available.</p>";
     }
 
-    function genSumRow(lbl, start, end) {
-        var pSum = 0; for(var k=start; k<=end; k++) pSum += golfData.pars[k];
+    function genSumRow(lbl, sIdx, eIdx) {
+        var pSum = 0; for(var k=sIdx; k<=eIdx; k++) pSum += golfData.pars[k];
         var clss = (lbl === "TOTAL") ? "total-row" : "sub-row";
         var row = "<tr class='"+clss+"'><td>"+lbl+"</td><td>"+pSum+"</td><td>-</td>";
         golfData.players.forEach((p, pi) => {
-            let g=0, pts=0;
-            for(let j=start; j<=end; j++) { if(p.scores[j]>0) { g+=p.scores[j]; pts+=calcPts(pi,j,p.scores[j]); } }
-            row += "<td>G:"+g+" | P:"+pts+"</td>";
+            let g=0, pts=0, tp=0;
+            for(let j=sIdx; j<=eIdx; j++) { if(p.scores[j]>0) { g+=p.scores[j]; pts+=calcPts(pi,j,p.scores[j]); tp+=golfData.pars[j]; } }
+            row += "<td>G:"+g+"<br>P:"+pts+"</td>";
         });
         return row + "</tr>";
     }
 
     function emailOut() {
-        var b = "RESULTS\n" + golfData.course + " (" + golfData.date + ")\n\n";
+        var b = "SCORE AND STROKE TRACKER\nRound Results:\n\n";
         golfData.players.forEach((p, pi) => {
             let g = p.scores.reduce((a,b)=>a+b, 0);
             let pts = p.scores.reduce((sum, s, i) => sum + calcPts(pi, i, s), 0);
             b += p.name.toUpperCase() + ": Gross " + g + " | Points: " + pts + "\n";
         });
-        window.location.href = "mailto:?subject=Scorecard&body=" + encodeURIComponent(b);
+        window.location.href = "mailto:?subject=Golf Results&body=" + encodeURIComponent(b);
     }
 
     render();
