@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Score and stroke tracker</title>
+    <title>Stableford Score & Stroke Tracker</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         :root {
@@ -72,13 +72,13 @@
 
 <div id="main-view">
     <div class="brand-header">
-        <div class="main-title">Score and stroke tracker</div>
+        <div class="main-title">Stableford Score & Stroke Tracker</div>
     </div>
 
     <div class="controls">
         <div class="input-group">
             <input type="text" id="cName" placeholder="Course Name" oninput="updateHeader()">
-            <input type="date" id="cDate" oninput="updateHeader()">
+            <input type="date" id="cDate" placeholder="Date" oninput="updateHeader()">
         </div>
         <div class="btn-row">
             <div>
@@ -93,7 +93,7 @@
     <div class="table-container"><div id="app"></div></div>
 
     <div class="history-section">
-        <div class="history-title">Round History Archive</div>
+        <div class="history-title">Round History</div>
         <div id="history-log"></div>
     </div>
 </div>
@@ -102,7 +102,7 @@
     <div class="brand-header">
         <button class="btn-back" onclick="closeDetail()">← Back to Dashboard</button>
         <div id="detail-title" class="main-title">Round Detail</div>
-        <button class="btn-email" id="email-detail-btn" style="margin-top:10px;">📧 Email Full Scorecard</button>
+        <button class="btn-email" id="email-detail-btn" style="margin-top:10px;">📧 Email Scorecard</button>
     </div>
     <div class="table-container"><div id="detail-app"></div></div>
 </div>
