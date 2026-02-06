@@ -7,7 +7,7 @@
     <style>
         :root {
             --bg: #0f172a;
-            --surface: #1e293b;
+            --surface: rgba(30, 41, 59, 0.85); /* Made slightly transparent to show background */
             --accent: #38bdf8;
             --success: #22c55e;
             --danger: #ef4444;
@@ -16,17 +16,45 @@
             --border: #334155;
         }
 
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); padding: 0; margin: 0; font-size: 13px; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: var(--bg);
+            /* Overhead golf course image with a dark fade overlay */
+            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), 
+                              url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?auto=format&fit=crop&q=80&w=2070');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text); 
+            padding: 0; 
+            margin: 0; 
+            font-size: 13px; 
+        }
+
         .hidden { display: none !important; }
 
         /* Branding & Header */
-        .brand-header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 20px 15px; text-align: center; border-bottom: 1px solid var(--border); }
+        .brand-header { 
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%); 
+            padding: 20px 15px; 
+            text-align: center; 
+            border-bottom: 1px solid var(--border); 
+            backdrop-filter: blur(5px);
+        }
         .main-title { font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
 
         /* Controls Area */
-        .controls { background: var(--surface); padding: 15px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
+        .controls { 
+            background: var(--surface); 
+            padding: 15px; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            border-bottom: 1px solid var(--border); 
+            backdrop-filter: blur(10px);
+        }
         .input-group { display: flex; gap: 10px; margin-bottom: 12px; }
-        input { background: #0f172a; color: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 10px; font-size: 14px; outline: none; width: 100%; }
+        input { background: rgba(15, 23, 42, 0.7); color: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 10px; font-size: 14px; outline: none; width: 100%; }
 
         /* REMOVE SPINNERS */
         input[type=number]::-webkit-inner-spin-button, 
@@ -44,20 +72,20 @@
 
         /* Scorecard Tables */
         .table-container { padding: 10px; overflow-x: auto; }
-        table { border-collapse: collapse; width: 100%; background: var(--surface); border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
-        th { background: #111827; color: var(--text-muted); padding: 12px 4px; font-size: 10px; }
+        table { border-collapse: collapse; width: 100%; background: var(--surface); border-radius: 8px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        th { background: rgba(17, 24, 39, 0.9); color: var(--text-muted); padding: 12px 4px; font-size: 10px; }
         td { border-bottom: 1px solid var(--border); padding: 10px 2px; text-align: center; }
 
-        .score-in { width: 80%; text-align: center; font-weight: 800; font-size: 18px; background: #0f172a; color: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 6px 0; }
+        .score-in { width: 80%; text-align: center; font-weight: 800; font-size: 18px; background: rgba(15, 23, 42, 0.6); color: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 6px 0; }
         .pts-label { color: var(--accent); font-size: 10px; font-weight: bold; display: block; margin-top: 4px; }
 
-        .sub-row { background: #334155; font-weight: bold; }
+        .sub-row { background: rgba(51, 65, 85, 0.7); font-weight: bold; }
         .total-row { background: var(--accent) !important; color: #0f172a !important; font-weight: 800; }
         
         /* History Archive Section */
-        .history-section { padding: 20px 15px; background: #0f172a; }
-        .history-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: var(--accent); }
-        .history-card { background: var(--surface); padding: 15px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid var(--accent); cursor: pointer; position: relative; }
+        .history-section { padding: 20px 15px; }
+        .history-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: var(--accent); text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .history-card { background: var(--surface); padding: 15px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid var(--accent); cursor: pointer; position: relative; backdrop-filter: blur(5px); }
         .history-card h4 { margin: 0 0 8px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
         
         .player-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; pointer-events: none; }
