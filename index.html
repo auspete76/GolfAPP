@@ -275,7 +275,7 @@
         }
         b += `\nSUMMARY:\n`;
         round.players.forEach(p => {
-            let g = p.scores.reduce((a,b)=>a+(parseInt(b)||0), 0);
+            let gross = p.scores.reduce((a,b)=>a+(parseInt(b)||0), 0);
             let pts = p.scores.reduce((sum, s, i) => sum + calcPts(p, i, s, round.pars, round.si), 0);
             b += `${p.name}: Gross ${g} | Points ${pts}\n`;
         });
