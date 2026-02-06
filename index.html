@@ -227,7 +227,7 @@
         let hLog = "";
         golfData.history.forEach(h => {
             let pSummaries = h.players.map(p => {
-                let g = p.scores.reduce((a,b) => a + (parseInt(b)||0), 0);
+                let gross = p.scores.reduce((a,b) => a + (parseInt(b)||0), 0);
                 let pts = p.scores.reduce((sum, s, i) => sum + calcPts(p, i, s, h.pars, h.si), 0);
                 return `<div class="p-stat"><span class="p-name">${p.name}</span>: <span class="p-score">${g}G | ${pts}Pts</span></div>`;
             }).join("");
