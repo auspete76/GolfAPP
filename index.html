@@ -17,13 +17,15 @@
         }
 
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); padding: 0; margin: 0; font-size: 13px; }
+        .hidden { display: none !important; }
 
+        /* Headers */
         .brand-header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 20px 15px; text-align: center; border-bottom: 1px solid var(--border); }
         .main-title { font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
 
+        /* Controls */
         .controls { background: var(--surface); padding: 15px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
         .input-group { display: flex; gap: 10px; margin-bottom: 12px; }
-        
         input { background: #0f172a; color: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 10px; font-size: 14px; outline: none; width: 100%; }
 
         .btn-row { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
@@ -31,9 +33,10 @@
 
         .btn-add { background: var(--success); color: #fff; }
         .btn-save { background: #f59e0b; color: #fff; }
-        .btn-email { background: var(--accent); color: #0f172a; }
+        .btn-back { background: var(--surface); color: var(--accent); border: 1px solid var(--accent); margin-bottom: 15px; }
         .btn-reset { background: transparent; border: 1px solid var(--danger); color: var(--danger); }
 
+        /* Table */
         .table-container { padding: 10px; overflow-x: auto; }
         table { border-collapse: collapse; width: 100%; background: var(--surface); border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
         th { background: #111827; color: var(--text-muted); padding: 12px 4px; font-size: 10px; }
@@ -45,47 +48,58 @@
         .sub-row { background: #334155; font-weight: bold; }
         .total-row { background: var(--accent) !important; color: #0f172a !important; font-weight: 800; }
         
-        /* History Section */
-        .history-section { padding: 20px 15px; background: #0f172a; border-top: 2px solid var(--border); }
+        /* History */
+        .history-section { padding: 20px 15px; background: #0f172a; }
         .history-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: var(--accent); }
-        .history-card { background: var(--surface); padding: 15px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid var(--accent); position: relative; }
-        .history-card h4 { margin: 0 0 5px 0; display: flex; justify-content: space-between; align-items: center; }
-        .history-card p { margin: 5px 0; color: var(--text-muted); font-size: 13px; line-height: 1.4; }
-        .del-hist { color: var(--danger); font-size: 10px; cursor: pointer; border: 1px solid var(--danger); padding: 2px 6px; border-radius: 4px; }
+        .history-card { background: var(--surface); padding: 15px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid var(--accent); cursor: pointer; }
+        .history-card:active { background: #2d3e5a; }
+        .history-card h4 { margin: 0 0 5px 0; display: flex; justify-content: space-between; pointer-events: none; }
+        .del-hist { color: var(--danger); font-size: 10px; float: right; margin-top: 10px; padding: 2px 5px; border: 1px solid var(--danger); border-radius: 4px; }
     </style>
 </head>
 <body>
 
-<div class="brand-header">
-    <div class="main-title">Score and stroke tracker</div>
-</div>
-
-<div class="controls">
-    <div class="input-group">
-        <input type="text" id="cName" placeholder="Course Name" oninput="updateHeader()">
-        <input type="date" id="cDate" oninput="updateHeader()">
+<div id="main-view">
+    <div class="brand-header">
+        <div class="main-title">Score and stroke tracker</div>
     </div>
-    <div class="btn-row">
-        <div>
-            <button class="btn-add" onclick="addP()">+ Player</button>
-            <button class="btn-save" onclick="saveToHistory()">💾 Archive</button>
-            <button class="btn-email" onclick="emailOut()">Email</button>
+
+    <div class="controls">
+        <div class="input-group">
+            <input type="text" id="cName" placeholder="Course Name" oninput="updateHeader()">
+            <input type="date" id="cDate" oninput="updateHeader()">
         </div>
-        <button class="btn-reset" onclick="wipe()">Clear</button>
+        <div class="btn-row">
+            <div>
+                <button class="btn-add" onclick="addP()">+ Player</button>
+                <button class="btn-save" onclick="saveToHistory()">💾 Archive</button>
+            </div>
+            <button class="btn-reset" onclick="wipe()">Clear</button>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div id="app"></div>
+    </div>
+
+    <div class="history-section">
+        <div class="history-title">Round History</div>
+        <div id="history-log"></div>
     </div>
 </div>
 
-<div class="table-container">
-    <div id="app"></div>
-</div>
-
-<div class="history-section">
-    <div class="history-title">Round History Archive</div>
-    <div id="history-log"></div>
+<div id="detail-view" class="hidden">
+    <div class="brand-header">
+        <button class="btn-back" onclick="closeDetail()">← Back to Dashboard</button>
+        <div id="detail-title" class="main-title">Round Detail</div>
+    </div>
+    <div class="table-container">
+        <div id="detail-app"></div>
+    </div>
 </div>
 
 <script>
-    var STORAGE_KEY = "SCORE_STROKE_TRACKER_V15";
+    var STORAGE_KEY = "SCORE_STROKE_TRACKER_V16";
     var golfData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
         course: "", date: "", players: [],
         pars: [4,4,4,3,4,5,4,4,3, 4,4,4,3,4,5,3,4,4],
@@ -107,42 +121,34 @@
         saveAndRender();
     }
 
-    // CRITICAL: Restored the instant Stableford update logic
     function updateVal(type, hIdx, pIdx, val) {
         var num = parseInt(val) || 0;
         if(type === 'course') golfData.pars[hIdx] = num;
         if(type === 'si') golfData.si[hIdx] = num;
         if(type === 'score') golfData.players[pIdx].scores[hIdx] = num;
-        
         localStorage.setItem(STORAGE_KEY, JSON.stringify(golfData));
         
-        // Update the visual point label immediately
-        if(type === 'score' || type === 'course' || type === 'si') {
-            golfData.players.forEach((p, pi) => {
-                var el = document.getElementById('pts-'+pi+'-'+hIdx);
-                if(el) el.innerText = calcPts(pi, hIdx, p.scores[hIdx]) + "pts";
-            });
-        }
+        golfData.players.forEach((p, pi) => {
+            var el = document.getElementById('pts-'+pi+'-'+hIdx);
+            if(el) el.innerText = calcPts(p, hIdx, p.scores[hIdx], golfData.pars, golfData.si) + "pts";
+        });
         
-        // Re-calculate totals after a short delay so typing isn't interrupted
         clearTimeout(window.renderTimer);
         window.renderTimer = setTimeout(render, 2000); 
     }
 
     function saveToHistory() {
-        if(golfData.players.length === 0) return alert("No players to archive.");
-        if(!confirm("Archive this round? Current card will be cleared.")) return;
+        if(golfData.players.length === 0) return;
+        if(!confirm("Archive this round and clear card?")) return;
 
-        let res = golfData.players.map(p => {
-            let pts = p.scores.reduce((sum, s, i) => sum + calcPts(golfData.players.indexOf(p), i, s), 0);
-            return `<strong>${p.name}</strong>: ${pts}pts`;
-        }).join("<br>");
-
+        // Save a deep copy of the current state
         golfData.history.unshift({
-            course: golfData.course || "No Course Name",
+            id: Date.now(),
+            course: golfData.course || "No Name",
             date: golfData.date || new Date().toLocaleDateString(),
-            result: res,
-            id: Date.now()
+            players: JSON.parse(JSON.stringify(golfData.players)),
+            pars: [...golfData.pars],
+            si: [...golfData.si]
         });
 
         golfData.players = []; 
@@ -151,84 +157,107 @@
         saveAndRender();
     }
 
-    function deleteHistory(id) {
-        if(!confirm("Delete this record?")) return;
-        golfData.history = golfData.history.filter(h => h.id !== id);
-        saveAndRender();
+    function openDetail(id) {
+        const round = golfData.history.find(h => h.id === id);
+        if(!round) return;
+
+        document.getElementById('main-view').classList.add('hidden');
+        document.getElementById('detail-view').classList.remove('hidden');
+        document.getElementById('detail-title').innerText = round.course;
+        
+        // Generate a read-only table for history
+        let html = "<table><tr><th>Hole</th><th>Par</th><th>SI</th>";
+        round.players.forEach(p => html += `<th>${p.name}<br><small>(${p.hcp})</small></th>`);
+        html += "</tr>";
+
+        for(let h=0; h<18; h++) {
+            if(h === 9) html += genStaticSum(round, "OUT", 0, 8);
+            html += `<tr><td>${h+1}</td><td style='color:#fbbf24'>${round.pars[h]}</td><td style='color:#f87171'>${round.si[h]}</td>`;
+            round.players.forEach(p => {
+                let pts = calcPts(p, h, p.scores[h], round.pars, round.si);
+                html += `<td><strong>${p.scores[h] || 0}</strong><span class='pts-label'>${pts}pts</span></td>`;
+            });
+            html += "</tr>";
+        }
+        html += genStaticSum(round, "IN", 9, 17);
+        html += genStaticSum(round, "TOTAL", 0, 17);
+        document.getElementById('detail-app').innerHTML = html + "</table>";
+        window.scrollTo(0,0);
     }
 
-    function saveAndRender() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(golfData));
-        render();
+    function closeDetail() {
+        document.getElementById('detail-view').classList.add('hidden');
+        document.getElementById('main-view').classList.remove('hidden');
     }
 
-    function wipe() { if(confirm("Clear current card?")) { golfData.players=[]; saveAndRender(); } }
-
-    function calcPts(pIdx, hIdx, score) {
+    function calcPts(p, hIdx, score, pars, si) {
         if(!score || score <= 0) return 0;
-        var p = golfData.players[pIdx];
-        var allow = Math.floor(p.hcp/18) + ((p.hcp%18) >= golfData.si[hIdx] ? 1 : 0);
-        return Math.max(0, (golfData.pars[hIdx] + 2) - (score - allow));
+        let allow = Math.floor(p.hcp/18) + ((p.hcp%18) >= si[hIdx] ? 1 : 0);
+        return Math.max(0, (pars[hIdx] + 2) - (score - allow));
+    }
+
+    function genStaticSum(round, lbl, start, end) {
+        let pSum = 0; for(let k=start; k<=end; k++) pSum += round.pars[k];
+        let clss = (lbl === "TOTAL") ? "total-row" : "sub-row";
+        let row = `<tr class='${clss}'><td>${lbl}</td><td>${pSum}</td><td>-</td>`;
+        round.players.forEach(p => {
+            let g=0, pts=0;
+            for(let j=start; j<=end; j++) { if(p.scores[j]>0) { g+=p.scores[j]; pts+=calcPts(p,j,p.scores[j], round.pars, round.si); } }
+            row += `<td>G:${g} P:${pts}</td>`;
+        });
+        return row + "</tr>";
     }
 
     function render() {
         document.getElementById('cName').value = golfData.course;
         document.getElementById('cDate').value = golfData.date;
-
-        if(golfData.players.length === 0) {
-            document.getElementById('app').innerHTML = "<div style='text-align:center; padding:40px; color:var(--text-muted);'>No active round. Add players to begin.</div>";
-        } else {
-            var html = "<table><tr><th>Hole</th><th>Par</th><th>SI</th>";
-            golfData.players.forEach(p => { html += "<th>" + p.name + "</th>"; });
+        
+        // Active Table
+        let html = "";
+        if(golfData.players.length > 0) {
+            html = "<table><tr><th>Hole</th><th>Par</th><th>SI</th>";
+            golfData.players.forEach(p => html += `<th>${p.name}</th>`);
             html += "</tr>";
-            for(var h=0; h<18; h++) {
-                if(h === 9) html += genSumRow("OUT", 0, 8);
-                html += "<tr><td style='color:var(--text-muted); font-weight:800;'>"+(h+1)+"</td>" +
-                    "<td><input type='number' value='"+golfData.pars[h]+"' style='width:25px; border:none; background:none; text-align:center; color:#fbbf24; font-weight:bold;' oninput='updateVal(\"course\","+h+",0,this.value)'></td>" +
-                    "<td><input type='number' value='"+golfData.si[h]+"' style='width:25px; border:none; background:none; text-align:center; color:#f87171; font-weight:bold;' oninput='updateVal(\"si\","+h+",0,this.value)'></td>";
+            for(let h=0; h<18; h++) {
+                if(h === 9) html += genSumRowActive("OUT", 0, 8);
+                html += `<tr><td>${h+1}</td>
+                    <td><input type='number' value='${golfData.pars[h]}' class='score-in' style='width:30px; font-size:12px; color:#fbbf24;' oninput='updateVal(\"course\",${h},0,this.value)'></td>
+                    <td><input type='number' value='${golfData.si[h]}' class='score-in' style='width:30px; font-size:12px; color:#f87171;' oninput='updateVal(\"si\",${h},0,this.value)'></td>`;
                 golfData.players.forEach((p, pi) => {
-                    var s = p.scores[h] || "";
-                    html += "<td><input type='number' class='score-in' value='"+s+"' oninput='updateVal(\"score\","+h+","+pi+",this.value)'><span id='pts-"+pi+"-"+h+"' class='pts-label'>"+calcPts(pi, h, s)+"pts</span></td>";
+                    html += `<td><input type='number' class='score-in' value='${p.scores[h]||""}' oninput='updateVal(\"score\",${h},${pi},this.value)'><span id='pts-${pi}-${h}' class='pts-label'>${calcPts(p, h, p.scores[h], golfData.pars, golfData.si)}pts</span></td>`;
                 });
                 html += "</tr>";
             }
-            html += genSumRow("IN", 9, 17);
-            html += genSumRow("TOTAL", 0, 17);
-            document.getElementById('app').innerHTML = html + "</table>";
+            html += genSumRowActive("IN", 9, 17) + genSumRowActive("TOTAL", 0, 17) + "</table>";
         }
+        document.getElementById('app').innerHTML = html || "<div style='text-align:center; padding:40px; color:#666;'>No active round.</div>";
 
-        var hLog = "";
+        // History Log
+        let hLog = "";
         golfData.history.forEach(h => {
-            hLog += `<div class="history-card">
+            hLog += `<div class="history-card" onclick="openDetail(${h.id})">
                 <h4>${h.course} <span style="font-size:11px; color:var(--accent)">${h.date}</span></h4>
-                <p>${h.result}</p>
-                <span class="del-hist" onclick="deleteHistory(${h.id})">Delete</span>
+                <p>${h.players.map(p => p.name).join(", ")}</p>
+                <span class="del-hist" onclick="event.stopPropagation(); deleteHistory(${h.id})">Delete</span>
             </div>`;
         });
-        document.getElementById('history-log').innerHTML = hLog || "<p style='color:#444'>No history available.</p>";
+        document.getElementById('history-log').innerHTML = hLog || "<p style='color:#444'>No history.</p>";
     }
 
-    function genSumRow(lbl, sIdx, eIdx) {
-        var pSum = 0; for(var k=sIdx; k<=eIdx; k++) pSum += golfData.pars[k];
-        var clss = (lbl === "TOTAL") ? "total-row" : "sub-row";
-        var row = "<tr class='"+clss+"'><td>"+lbl+"</td><td>"+pSum+"</td><td>-</td>";
+    function genSumRowActive(lbl, s, e) {
+        let pSum = 0; for(let k=s; k<=e; k++) pSum += golfData.pars[k];
+        let row = `<tr class='${lbl === "TOTAL" ? "total-row" : "sub-row"}'><td>${lbl}</td><td>${pSum}</td><td>-</td>`;
         golfData.players.forEach((p, pi) => {
-            let g=0, pts=0, tp=0;
-            for(let j=sIdx; j<=eIdx; j++) { if(p.scores[j]>0) { g+=p.scores[j]; pts+=calcPts(pi,j,p.scores[j]); tp+=golfData.pars[j]; } }
-            row += "<td>G:"+g+"<br>P:"+pts+"</td>";
+            let g=0, pts=0;
+            for(let j=s; j<=e; j++) { if(p.scores[j]>0) { g+=p.scores[j]; pts+=calcPts(p,j,p.scores[j], golfData.pars, golfData.si); } }
+            row += `<td>G:${g} P:${pts}</td>`;
         });
         return row + "</tr>";
     }
 
-    function emailOut() {
-        var b = "SCORE AND STROKE TRACKER\nRound Results:\n\n";
-        golfData.players.forEach((p, pi) => {
-            let g = p.scores.reduce((a,b)=>a+b, 0);
-            let pts = p.scores.reduce((sum, s, i) => sum + calcPts(pi, i, s), 0);
-            b += p.name.toUpperCase() + ": Gross " + g + " | Points: " + pts + "\n";
-        });
-        window.location.href = "mailto:?subject=Golf Results&body=" + encodeURIComponent(b);
-    }
+    function deleteHistory(id) { if(confirm("Delete?")) { golfData.history = golfData.history.filter(h => h.id !== id); saveAndRender(); } }
+    function saveAndRender() { localStorage.setItem(STORAGE_KEY, JSON.stringify(golfData)); render(); }
+    function wipe() { if(confirm("Clear current card?")) { golfData.players=[]; saveAndRender(); } }
 
     render();
 </script>
