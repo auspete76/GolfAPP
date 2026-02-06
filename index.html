@@ -1,202 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Score and stroke tracker</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        :root {
-            --bg: #0f172a;
-            --surface: #1e293b;
-            --accent: #38bdf8;
-            --success: #22c55e;
-            --danger: #ef4444;
-            --text: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border: #334155;
-        }
-
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); padding: 0; margin: 0; font-size: 13px; }
-        .hidden { display: none !important; }
-
-        .brand-header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 20px 15px; text-align: center; border-bottom: 1px solid var(--border); }
-        .main-title { font-size: 24px; font-weight: 700; margin: 0; color: #fff; }
-
-        .controls { background: var(--surface); padding: 15px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
-        .input-group { display: flex; gap: 10px; margin-bottom: 12px; }
-        input { background: #0f172a; color: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 10px; font-size: 14px; outline: none; width: 100%; }
-
-        /* REMOVE SPINNERS */
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-            margin: 0; 
-        }
-        input[type=number] { -moz-appearance: textfield; }
-
-        .btn-row { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
-        button { padding: 10px 14px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 11px; transition: 0.2s; }
-
-        .btn-add { background: var(--success); color: #fff; }
-        .btn-save { background: #f59e0b; color: #fff; }
-        .btn-back { background: var(--surface); color: var(--accent); border: 1px solid var(--accent); margin-bottom: 15px; width: 100%; }
-        .btn-email { background: var(--accent); color: #0f172a; }
-        .btn-reset { background: transparent; border: 1px solid var(--danger); color: var(--danger); }
-
-        .table-container { padding: 10px; overflow-x: auto; }
-        table { border-collapse: collapse; width: 100%; background: var(--surface); border-radius: 8px; overflow: hidden; margin-bottom: 20px; }
-        th { background: #111827; color: var(--text-muted); padding: 12px 4px; font-size: 10px; }
-        td { border-bottom: 1px solid var(--border); padding: 10px 2px; text-align: center; }
-
-        .score-in { width: 80%; text-align: center; font-weight: 800; font-size: 18px; background: #0f172a; color: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 6px 0; }
-        .pts-label { color: var(--accent); font-size: 10px; font-weight: bold; display: block; margin-top: 4px; }
-
-        .sub-row { background: #334155; font-weight: bold; }
-        .total-row { background: var(--accent) !important; color: #0f172a !important; font-weight: 800; }
-        
-        .history-section { padding: 20px 15px; background: #0f172a; }
-        .history-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; color: var(--accent); }
-        .history-card { background: var(--surface); padding: 15px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid var(--accent); cursor: pointer; position: relative; }
-        .history-card h4 { margin: 0 0 5px 0; display: flex; justify-content: space-between; pointer-events: none; }
-        .del-hist { color: var(--danger); font-size: 10px; float: right; margin-top: 10px; padding: 2px 5px; border: 1px solid var(--danger); border-radius: 4px; }
-    </style>
-</head>
-<body>
-
-<div id="main-view">
-    <div class="brand-header">
-        <div class="main-title">Score and stroke tracker</div>
-    </div>
-
-    <div class="controls">
-        <div class="input-group">
-            <input type="text" id="cName" placeholder="Course Name" oninput="updateHeader()">
-            <input type="date" id="cDate" oninput="updateHeader()">
-        </div>
-        <div class="btn-row">
-            <div>
-                <button class="btn-add" onclick="addP()">+ Player</button>
-                <button class="btn-save" onclick="saveToHistory()">💾 Archive</button>
-                <button class="btn-email" onclick="emailActive()">📧 Email</button>
-            </div>
-            <button class="btn-reset" onclick="wipe()">Clear</button>
-        </div>
-    </div>
-
-    <div class="table-container"><div id="app"></div></div>
-
-    <div class="history-section">
-        <div class="history-title">Round History</div>
-        <div id="history-log"></div>
-    </div>
-</div>
-
-<div id="detail-view" class="hidden">
-    <div class="brand-header">
-        <button class="btn-back" onclick="closeDetail()">← Back to Dashboard</button>
-        <div id="detail-title" class="main-title">Round Detail</div>
-        <button class="btn-email" id="email-detail-btn" style="margin-top:10px;">📧 Email Full Scorecard</button>
-    </div>
-    <div class="table-container"><div id="detail-app"></div></div>
-</div>
+<style>
+    /* Updated History Card for better summary layout */
+    .history-card { background: var(--surface); padding: 15px; border-radius: 8px; margin-bottom: 12px; border-left: 4px solid var(--accent); cursor: pointer; }
+    .history-card h4 { margin: 0 0 8px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+    .history-card .player-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .history-card .p-stat { font-size: 12px; color: var(--text-muted); }
+    .history-card .p-name { color: var(--text); font-weight: bold; }
+    .history-card .p-score { color: var(--accent); font-weight: 800; }
+</style>
 
 <script>
-    var STORAGE_KEY = "SCORE_STROKE_TRACKER_V18";
-    var golfData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
-        course: "", date: "", players: [],
-        pars: [4,4,4,3,4,5,4,4,3, 4,4,4,3,4,5,3,4,4],
-        si: [9,13,7,17,3,1,15,5,11, 10,14,2,16,6,18,8,4,12],
-        history: []
-    };
-
-    function updateHeader() {
-        golfData.course = document.getElementById('cName').value;
-        golfData.date = document.getElementById('cDate').value;
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(golfData));
-    }
-
-    function addP() {
-        var n = prompt("Player Name:");
-        if(!n) return;
-        var h = prompt("Handicap:", "0");
-        golfData.players.push({name: n, hcp: parseInt(h)||0, scores: new Array(18).fill(0)});
-        saveAndRender();
-    }
-
-    function updateVal(type, hIdx, pIdx, val) {
-        var num = parseInt(val) || 0;
-        if(type === 'course') golfData.pars[hIdx] = num;
-        if(type === 'si') golfData.si[hIdx] = num;
-        if(type === 'score') golfData.players[pIdx].scores[hIdx] = num;
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(golfData));
-        
-        golfData.players.forEach((p, pi) => {
-            var el = document.getElementById('pts-'+pi+'-'+hIdx);
-            if(el) el.innerText = calcPts(p, hIdx, p.scores[hIdx], golfData.pars, golfData.si) + "pts";
-        });
-        clearTimeout(window.renderTimer);
-        window.renderTimer = setTimeout(render, 2000); 
-    }
-
-    function saveToHistory() {
-        if(golfData.players.length === 0) return;
-        if(!confirm("Archive this round and clear card?")) return;
-        golfData.history.unshift({
-            id: Date.now(),
-            course: golfData.course || "No Name",
-            date: golfData.date || new Date().toLocaleDateString(),
-            players: JSON.parse(JSON.stringify(golfData.players)),
-            pars: [...golfData.pars],
-            si: [...golfData.si]
-        });
-        golfData.players = []; golfData.course = ""; golfData.date = "";
-        saveAndRender();
-    }
-
-    function openDetail(id) {
-        const round = golfData.history.find(h => h.id === id);
-        if(!round) return;
-        document.getElementById('main-view').classList.add('hidden');
-        document.getElementById('detail-view').classList.remove('hidden');
-        document.getElementById('detail-title').innerText = round.course;
-        document.getElementById('email-detail-btn').onclick = () => emailFullRound(round);
-        
-        let html = "<table><tr><th>Hole</th><th>Par</th><th>SI</th>";
-        round.players.forEach(p => html += `<th>${p.name}<br><small>(${p.hcp})</small></th>`);
-        html += "</tr>";
-        for(let h=0; h<18; h++) {
-            if(h === 9) html += genStaticSum(round, "OUT", 0, 8);
-            html += `<tr><td>${h+1}</td><td style='color:#fbbf24'>${round.pars[h]}</td><td style='color:#f87171'>${round.si[h]}</td>`;
-            round.players.forEach(p => html += `<td><strong>${p.scores[h] || 0}</strong><span class='pts-label'>${calcPts(p, h, p.scores[h], round.pars, round.si)}pts</span></td>`);
-            html += "</tr>";
-        }
-        html += genStaticSum(round, "IN", 9, 17) + genStaticSum(round, "TOTAL", 0, 17);
-        document.getElementById('detail-app').innerHTML = html + "</table>";
-        window.scrollTo(0,0);
-    }
-
-    function closeDetail() { document.getElementById('detail-view').classList.add('hidden'); document.getElementById('main-view').classList.remove('hidden'); }
-
-    function calcPts(p, hIdx, score, pars, si) {
-        if(!score || score <= 0) return 0;
-        let allow = Math.floor(p.hcp/18) + ((p.hcp%18) >= si[hIdx] ? 1 : 0);
-        return Math.max(0, (pars[hIdx] + 2) - (score - allow));
-    }
-
-    function genStaticSum(round, lbl, start, end) {
-        let pSum = 0; for(let k=start; k<=end; k++) pSum += round.pars[k];
-        let row = `<tr class='${lbl === "TOTAL" ? "total-row" : "sub-row"}'><td>${lbl}</td><td>${pSum}</td><td>-</td>`;
-        round.players.forEach(p => {
-            let g=0, pts=0;
-            for(let j=start; j<=end; j++) { if(p.scores[j]>0) { g+=p.scores[j]; pts+=calcPts(p,j,p.scores[j], round.pars, round.si); } }
-            row += `<td>G:${g} P:${pts}</td>`;
-        });
-        return row + "</tr>";
-    }
+    // ... rest of your code ...
 
     function render() {
         document.getElementById('cName').value = golfData.course;
         document.getElementById('cDate').value = golfData.date;
+        
+        // Active Table logic remains same
         let html = "";
         if(golfData.players.length > 0) {
             html = "<table><tr><th>Hole</th><th>Par</th><th>SI</th>";
@@ -215,79 +34,26 @@
             html += genSumRowActive("IN", 9, 17) + genSumRowActive("TOTAL", 0, 17) + "</table>";
         }
         document.getElementById('app').innerHTML = html || "<div style='text-align:center; padding:40px; color:#666;'>No active round.</div>";
+
+        // ENHANCED History Log with Player Totals
         let hLog = "";
         golfData.history.forEach(h => {
+            let playerSummaries = h.players.map(p => {
+                let g = p.scores.reduce((a,b) => a + (parseInt(b)||0), 0);
+                let pts = p.scores.reduce((sum, s, i) => sum + calcPts(p, i, s, h.pars, h.si), 0);
+                return `<div class="p-stat"><span class="p-name">${p.name}</span>: <span class="p-score">${g} G | ${pts} Pts</span></div>`;
+            }).join("");
+
             hLog += `<div class="history-card" onclick="openDetail(${h.id})">
                 <h4>${h.course} <span style="font-size:11px; color:var(--accent)">${h.date}</span></h4>
-                <p>${h.players.map(p => p.name).join(", ")}</p>
+                <div class="player-summary">
+                    ${playerSummaries}
+                </div>
                 <span class="del-hist" onclick="event.stopPropagation(); deleteHistory(${h.id})">Delete</span>
             </div>`;
         });
-        document.getElementById('history-log').innerHTML = hLog || "<p style='color:#444'>No history.</p>";
+        document.getElementById('history-log').innerHTML = hLog || "<p style='color:#444'>No history available.</p>";
     }
-
-    function genSumRowActive(lbl, s, e) {
-        let pSum = 0; for(let k=s; k<=e; k++) pSum += golfData.pars[k];
-        let row = `<tr class='${lbl === "TOTAL" ? "total-row" : "sub-row"}'><td>${lbl}</td><td>${pSum}</td><td>-</td>`;
-        golfData.players.forEach(p => {
-            let g=0, pts=0;
-            for(let j=s; j<=e; j++) { if(p.scores[j]>0) { g+=p.scores[j]; pts+=calcPts(p,j,p.scores[j], golfData.pars, golfData.si); } }
-            row += `<td>G:${g} P:${pts}</td>`;
-        });
-        return row + "</tr>";
-    }
-
-    function emailFullRound(round) {
-        if(!round || round.players.length === 0) return;
-        let b = `⛳ SCORECARD: ${round.course}\n📅 DATE: ${round.date}\n\n`;
-        
-        // Header
-        b += `HOLE | PAR | SI | ` + round.players.map(p => p.name.toUpperCase().substring(0,5)).join(" | ") + `\n`;
-        b += `--------------------------------------------------\n`;
-
-        // Hole by Hole
-        for(let h=0; h<18; h++) {
-            let line = `${(h+1).toString().padStart(2,' ')}   |  ${round.pars[h]}  | ${round.si[h].toString().padStart(2,' ')} | `;
-            round.players.forEach(p => {
-                let pts = calcPts(p, h, p.scores[h], round.pars, round.si);
-                line += `${p.scores[h]||0}(${pts}p) | `;
-            });
-            b += line + `\n`;
-            if(h === 8 || h === 17) {
-                let lbl = (h===8) ? "OUT" : "TOTAL";
-                let start = (h===8) ? 0 : 0;
-                let end = (h===8) ? 8 : 17;
-                let sumLine = `${lbl} | -- | -- | `;
-                round.players.forEach(p => {
-                    let g=0, pts=0;
-                    for(let j=start; j<=end; j++) { if(p.scores[j]>0) { g+=p.scores[j]; pts+=calcPts(p,j,p.scores[j], round.pars, round.si); } }
-                    sumLine += `${g}(${pts}p) | `;
-                });
-                b += `--------------------------------------------------\n`;
-                b += sumLine + `\n`;
-                b += `--------------------------------------------------\n`;
-            }
-        }
-        
-        b += `\nSUMMARY:\n`;
-        round.players.forEach(p => {
-            let g = p.scores.reduce((a,b)=>a+b, 0);
-            let pts = p.scores.reduce((sum, s, i) => sum + calcPts(p, i, s, round.pars, round.si), 0);
-            b += `${p.name}: Gross ${g} | Points ${pts}\n`;
-        });
-
-        window.location.href = `mailto:?subject=Scorecard: ${round.course}&body=${encodeURIComponent(b)}`;
-    }
-
-    function emailActive() {
-        const active = { course: golfData.course || "Active Round", date: golfData.date || "Today", players: golfData.players, pars: golfData.pars, si: golfData.si };
-        emailFullRound(active);
-    }
-
-    function deleteHistory(id) { if(confirm("Delete?")) { golfData.history = golfData.history.filter(h => h.id !== id); saveAndRender(); } }
-    function saveAndRender() { localStorage.setItem(STORAGE_KEY, JSON.stringify(golfData)); render(); }
-    function wipe() { if(confirm("Clear current card?")) { golfData.players=[]; saveAndRender(); } }
-    render();
+    
+    // ... rest of your code ...
 </script>
-</body>
-</html>
