@@ -26,6 +26,14 @@
         .input-group { display: flex; gap: 10px; margin-bottom: 12px; }
         input { background: #0f172a; color: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 10px; font-size: 14px; outline: none; width: 100%; }
 
+        /* REMOVE SPINNERS */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] { -moz-appearance: textfield; }
+
         .btn-row { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
         button { padding: 10px 14px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 11px; transition: 0.2s; }
 
@@ -87,13 +95,13 @@
     <div class="brand-header">
         <button class="btn-back" onclick="closeDetail()">← Back to Dashboard</button>
         <div id="detail-title" class="main-title">Round Detail</div>
-        <button class="btn-email" id="email-detail-btn" style="margin-top:10px;">📧 Email This Card</button>
+        <button class="btn-email" id="email-detail-btn" style="margin-top:10px;">📧 Email Full Scorecard</button>
     </div>
     <div class="table-container"><div id="detail-app"></div></div>
 </div>
 
 <script>
-    var STORAGE_KEY = "SCORE_STROKE_TRACKER_V17";
+    var STORAGE_KEY = "SCORE_STROKE_TRACKER_V18";
     var golfData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
         course: "", date: "", players: [],
         pars: [4,4,4,3,4,5,4,4,3, 4,4,4,3,4,5,3,4,4],
@@ -151,7 +159,7 @@
         document.getElementById('main-view').classList.add('hidden');
         document.getElementById('detail-view').classList.remove('hidden');
         document.getElementById('detail-title').innerText = round.course;
-        document.getElementById('email-detail-btn').onclick = () => emailRound(round);
+        document.getElementById('email-detail-btn').onclick = () => emailFullRound(round);
         
         let html = "<table><tr><th>Hole</th><th>Par</th><th>SI</th>";
         round.players.forEach(p => html += `<th>${p.name}<br><small>(${p.hcp})</small></th>`);
@@ -229,21 +237,51 @@
         return row + "</tr>";
     }
 
-    function emailRound(round) {
+    function emailFullRound(round) {
         if(!round || round.players.length === 0) return;
-        let b = `⛳ GOLF SCORECARD: ${round.course}\n📅 DATE: ${round.date}\n\n`;
+        let b = `⛳ SCORECARD: ${round.course}\n📅 DATE: ${round.date}\n\n`;
+        
+        // Header
+        b += `HOLE | PAR | SI | ` + round.players.map(p => p.name.toUpperCase().substring(0,5)).join(" | ") + `\n`;
+        b += `--------------------------------------------------\n`;
+
+        // Hole by Hole
+        for(let h=0; h<18; h++) {
+            let line = `${(h+1).toString().padStart(2,' ')}   |  ${round.pars[h]}  | ${round.si[h].toString().padStart(2,' ')} | `;
+            round.players.forEach(p => {
+                let pts = calcPts(p, h, p.scores[h], round.pars, round.si);
+                line += `${p.scores[h]||0}(${pts}p) | `;
+            });
+            b += line + `\n`;
+            if(h === 8 || h === 17) {
+                let lbl = (h===8) ? "OUT" : "TOTAL";
+                let start = (h===8) ? 0 : 0;
+                let end = (h===8) ? 8 : 17;
+                let sumLine = `${lbl} | -- | -- | `;
+                round.players.forEach(p => {
+                    let g=0, pts=0;
+                    for(let j=start; j<=end; j++) { if(p.scores[j]>0) { g+=p.scores[j]; pts+=calcPts(p,j,p.scores[j], round.pars, round.si); } }
+                    sumLine += `${g}(${pts}p) | `;
+                });
+                b += `--------------------------------------------------\n`;
+                b += sumLine + `\n`;
+                b += `--------------------------------------------------\n`;
+            }
+        }
+        
+        b += `\nSUMMARY:\n`;
         round.players.forEach(p => {
             let g = p.scores.reduce((a,b)=>a+b, 0);
             let pts = p.scores.reduce((sum, s, i) => sum + calcPts(p, i, s, round.pars, round.si), 0);
-            b += `${p.name.toUpperCase()}: Gross ${g} | Points: ${pts}pts\n`;
+            b += `${p.name}: Gross ${g} | Points ${pts}\n`;
         });
-        b += `\nSent via Score and stroke tracker.`;
+
         window.location.href = `mailto:?subject=Scorecard: ${round.course}&body=${encodeURIComponent(b)}`;
     }
 
     function emailActive() {
-        const activeRound = { course: golfData.course || "Active Round", date: golfData.date || "Today", players: golfData.players, pars: golfData.pars, si: golfData.si };
-        emailRound(activeRound);
+        const active = { course: golfData.course || "Active Round", date: golfData.date || "Today", players: golfData.players, pars: golfData.pars, si: golfData.si };
+        emailFullRound(active);
     }
 
     function deleteHistory(id) { if(confirm("Delete?")) { golfData.history = golfData.history.filter(h => h.id !== id); saveAndRender(); } }
