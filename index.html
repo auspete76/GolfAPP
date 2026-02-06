@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Score and stroke tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --accent: #38bdf8;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+        }
+
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            padding: 0; 
+            margin: 0; 
+            font-size: 13px;
+        }
+
+        /* Branding Header */
+        .brand-header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 20px 15px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .brand-name {
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .main-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            color: #fff;
+        }
+
+        .controls { 
+            background: var(--surface); 
+            padding: 15px; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            border-bottom: 1px solid var(--border);
+        }
+
+        .input-group { display: flex; gap: 10px; margin-bottom: 12px; }
+        
+        input { 
+            background: #0f172a; 
+            color: #fff; 
+            border: 1px solid var(--border); 
+            border-radius: 6px; 
+            padding: 10px; 
+            font-size: 14px;
+            outline: none;
+        }
+        input:focus { border-color: var(--accent); }
+
+        .btn-row { display: flex; justify-content: space-between; gap: 8px; }
+        
+        button { 
+            padding: 10px 16px; 
+            border: none; 
+            border-radius: 6px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            font-size: 11px;
+            transition: all 0.2s;
+        }
+
+        .btn-add { background: var(--success); color: #fff; }
+        .btn-email { background: var(--accent); color: #0f172a; }
+        .btn-reset { background: transparent; border: 1px solid var(--danger); color: var(--danger); }
+        button:active { transform: scale(0.96); }
+
+        /* Table Design */
+        .table-container { padding: 10px; overflow-x: auto; }
+        table { border-collapse: collapse; width: 100%; background: var(--surface); border-radius: 8px; overflow: hidden; }
+        th { background: #111827; color: var(--text-muted); padding: 12px 4px; font-weight: 600; font-size: 10px; text-transform: uppercase; }
+        td { border-bottom: 1px solid var(--border); padding: 10px 2px; text-align: center; }
+
+        .par-col { color: #fbbf24; font-weight: bold; background: rgba(251, 191, 36, 0.05); } 
+        .si-col { color: #f87171; font-weight: bold; background: rgba(248, 113, 113, 0.05); }  
+        
+        input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+        
+        .score-in { 
+            width: 80%; 
+            text-align: center; 
+            font-weight: 800; 
+            font-size: 18px; 
+            background: #0f172a; 
+            color: #fff; 
+            border: 1px solid var(--border); 
+            border-radius: 4px;
+            padding: 6px 0;
+        }
+
+        .pts-label { color: var(--accent); font-size: 10px; font-weight: bold; display: block; margin-top: 4px; }
+
+        /* Row Styles */
+        .sub-row { background: #334155; color: #fff; font-weight: bold; }
+        .total-row { background: var(--accent) !important; color: #0f172a !important; font-weight: 800; }
+        
+        .empty-state { text-align: center; padding: 40px; color: var(--text-muted); font-style: italic; }
+    </style>
+</head>
+<body>
+
+<div class="brand-header">
+    <div class="brand-name">Golf Performance</div>
+    <div class="main-title">Score and stroke tracker</div>
+</div>
+
+<div class="controls">
+    <div class="input-group">
+        <input type="text" id="cName" placeholder="Course Name" style="flex:2;" oninput="updateHeader()">
+        <input type="date" id="cDate" style="flex:1;" oninput="updateHeader()">
+    </div>
+    <div class="btn-row">
+        <div>
+            <button class="btn-add" onclick="addP()">+ Player</button>
+            <button class="btn-email" onclick="emailOut()">Email Results</button>
+        </div>
+        <button class="btn-reset" onclick="wipe()">Reset</button>
+    </div>
+</div>
+
+<div class="table-container">
+    <div id="app"></div>
+</div>
+
+<script>
+    var STORAGE_KEY = "SCORE_STROKE_TRACKER_PRO";
+    var golfData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+        course: "", date: "", players: [],
+        pars: [4,4,4,3,4,5,4,4,4, 4,4,5,3,4,5,3,5,4],
+        si: [7,9,11,15,3,1,13,5,18, 2,14,12,17,4,8,10,16,6]
+    };
+
+    function updateHeader() {
+        golfData.course = document.getElementById('cName').value;
+        golfData.date = document.getElementById('cDate').value;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(golfData));
+    }
+
+    function addP() {
+        var n = prompt("Enter Player Name:");
+        if(!n) return;
+        var h = prompt("Enter Handicap:", "0");
+        golfData.players.push({name: n, hcp: parseInt(h)||0, scores: new Array(18).fill(0)});
+        saveAndRender();
+    }
+
+    function updateVal(type, hIdx, pIdx, val) {
+        var num = parseInt(val) || 0;
+        if(type === 'course') golfData.pars[hIdx] = num;
+        if(type === 'si') golfData.si[hIdx] = num;
+        if(type === 'score') golfData.players[pIdx].scores[hIdx] = num;
+        
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(golfData));
+        
+        if(type === 'score' || type === 'course' || type === 'si') {
+            golfData.players.forEach((p, pi) => {
+                var el = document.getElementById('pts-'+pi+'-'+hIdx);
+                if(el) el.innerText = calcPts(pi, hIdx, p.scores[hIdx]) + "pts";
+            });
+        }
+        
+        clearTimeout(window.renderTimer);
+        window.renderTimer = setTimeout(render, 1500); 
+    }
+
+    function saveAndRender() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(golfData));
+        render();
+    }
+
+    function wipe() { if(confirm("This will clear all data. Proceed?")) { localStorage.removeItem(STORAGE_KEY); location.reload(); } }
+
+    function calcPts(pIdx, hIdx, score) {
+        if(!score || score <= 0) return 0;
+        var p = golfData.players[pIdx];
+        var allow = Math.floor(p.hcp/18) + ((p.hcp%18) >= golfData.si[hIdx] ? 1 : 0);
+        return Math.max(0, (golfData.pars[hIdx] + 2) - (score - allow));
+    }
+
+    function render() {
+        document.getElementById('cName').value = golfData.course;
+        document.getElementById('cDate').value = golfData.date;
+
+        if(golfData.players.length === 0) {
+            document.getElementById('app').innerHTML = "<div class='empty-state'>No players added. Click '+ PLAYER' to begin your round.</div>";
+            return;
+        }
+
+        var html = "<table><tr><th>Hole</th><th class='par-col'>Par</th><th class='si-col'>SI</th>";
+        golfData.players.forEach(p => { html += "<th>" + p.name + "</th>"; });
+        html += "</tr>";
+
+        for(var h=0; h<18; h++) {
+            if(h === 9) html += genSumRow("OUT", 0, 8);
+            
+            html += "<tr><td style='color:var(--text-muted); font-weight:800;'>" + (h+1) + "</td>" +
+                "<td class='par-col'><input type='number' value='"+golfData.pars[h]+"' style='width:25px; border:none; background:none; text-align:center; color:inherit; font-weight:bold;' oninput='updateVal(\"course\","+h+",0,this.value)'></td>" +
+                "<td class='si-col'><input type='number' value='"+golfData.si[h]+"' style='width:25px; border:none; background:none; text-align:center; color:inherit; font-weight:bold;' oninput='updateVal(\"si\","+h+",0,this.value)'></td>";
+            
+            golfData.players.forEach((p, pi) => {
+                var s = p.scores[h] || "";
+                html += "<td><input type='number' class='score-in' value='"+s+"' oninput='updateVal(\"score\","+h+","+pi+",this.value)'><span id='pts-"+pi+"-"+h+"' class='pts-label'>"+calcPts(pi, h, s)+"pts</span></td>";
+            });
+            html += "</tr>";
+        }
+        html += genSumRow("IN", 9, 17);
+        html += genSumRow("TOTAL", 0, 17);
+        document.getElementById('app').innerHTML = html + "</table><div style='height:80px;'></div>";
+    }
+
+    function genSumRow(label, start, end) {
+        var parSum = 0; for(var k=start; k<=end; k++) parSum += golfData.pars[k];
+        var rowClass = (label === "TOTAL") ? "total-row" : "sub-row";
+        var row = "<tr class='"+rowClass+"'><td>"+label+"</td><td>"+parSum+"</td><td>-</td>";
+        
+        golfData.players.forEach((p, pi) => {
+            var gSum = 0, pSum = 0, playedPar = 0;
+            for(var j=start; j<=end; j++) {
+                if(p.scores[j] > 0) { gSum += p.scores[j]; pSum += calcPts(pi, j, p.scores[j]); playedPar += golfData.pars[j]; }
+            }
+            var diff = gSum - playedPar;
+            var pm = (gSum === 0) ? "" : (diff === 0 ? "E" : (diff > 0 ? "+"+diff : diff));
+            row += "<td>G:"+gSum+" ("+pm+")<br>P:"+pSum+"</td>";
+        });
+        return row + "</tr>";
+    }
+
+    function emailOut() {
+        var pad = (t, l) => String(t) + " ".repeat(Math.max(0, l - String(t).length));
+        var b = "SCORE AND STROKE TRACKER\n";
+        b += "Course: " + (golfData.course || "N/A") + " | Date: " + (golfData.date || "N/A") + "\n\n";
+        
+        var head = pad("HOLE", 5) + "| " + pad("PAR", 4) + "| " + pad("SI", 3) + "| ";
+        golfData.players.forEach(p => head += pad(p.name.substring(0,5), 8) + "| ");
+        var sep = "-".repeat(head.length) + "\n";
+        b += sep + head + "\n" + sep;
+
+        const writeSection = (start, end, label) => {
+            let s = "";
+            for(let h=start; h<=end; h++) {
+                s += pad(h+1, 5) + "| " + pad(golfData.pars[h], 4) + "| " + pad(golfData.si[h], 3) + "| ";
+                golfData.players.forEach((p, pi) => s += pad(p.scores[h] + "(" + calcPts(pi, h, p.scores[h]) + "p)", 8) + "| ");
+                s += "\n";
+            }
+            s += sep + pad(label, 5) + "| " + pad(golfData.pars.slice(start, end+1).reduce((a,b)=>a+b), 4) + "| " + pad("-", 3) + "| ";
+            golfData.players.forEach((p, pi) => {
+                let g=0, pts=0, tp=0;
+                for(let j=start; j<=end; j++) { if(p.scores[j]>0){ g+=p.scores[j]; pts+=calcPts(pi,j,p.scores[j]); tp+=golfData.pars[j]; } }
+                let pm = (g-tp===0?"E":(g-tp>0?"+"+(g-tp):(g-tp)));
+                s += pad(g + "(" + pm + ")", 8) + "| ";
+            });
+            return s + "\n" + sep;
+        };
+
+        b += writeSection(0, 8, "OUT");
+        b += writeSection(9, 17, "IN");
+        b += "FINAL SUMMARY:\n";
+        golfData.players.forEach((p, pi) => {
+            let g=0, pts=0, tp=0;
+            p.scores.forEach((sc, i) => { if(sc>0){ g+=sc; pts+=calcPts(pi,i,sc); tp+=golfData.pars[i]; } });
+            let pm = (g-tp===0?"E":(g-tp>0?"+"+(g-tp):(g-tp)));
+            b += p.name.toUpperCase() + ": Gross " + g + " (" + pm + ") | Points: " + pts + "\n";
+        });
+
+        window.location.href = "mailto:?subject=Score and stroke tracker: "+golfData.course+"&body=" + encodeURIComponent(b);
+    }
+
+    render();
+</script>
+</body>
+</html>
