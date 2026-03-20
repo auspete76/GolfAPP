@@ -1,0 +1,660 @@
+{
+  "Gullane_No_1": {
+    "Championship": {
+      "yards_out": 3251,
+      "yards_in": 3622,
+      "yards_total": 6873,
+      "holes": [
+        { "hole": 1, "yards": 302 },
+        { "hole": 2, "yards": 412 },
+        { "hole": 3, "yards": 523 },
+        { "hole": 4, "yards": 164 },
+        { "hole": 5, "yards": 450 },
+        { "hole": 6, "yards": 337 },
+        { "hole": 7, "yards": 398 },
+        { "hole": 8, "yards": 471 },
+        { "hole": 9, "yards": 194 },
+        { "hole": 10, "yards": 466 },
+        { "hole": 11, "yards": 471 },
+        { "hole": 12, "yards": 480 },
+        { "hole": 13, "yards": 178 },
+        { "hole": 14, "yards": 478 },
+        { "hole": 15, "yards": 580 },
+        { "hole": 16, "yards": 194 },
+        { "hole": 17, "yards": 390 },
+        { "hole": 18, "yards": 385 }
+      ]
+    },
+    "White": {
+      "rating": 70.0,
+      "slope": 113,
+      "yards_out": 3058,
+      "yards_in": 3490,
+      "yards_total": 6548,
+      "holes": [
+        { "hole": 1, "yards": 302 },
+        { "hole": 2, "yards": 379 },
+        { "hole": 3, "yards": 496 },
+        { "hole": 4, "yards": 144 },
+        { "hole": 5, "yards": 450 },
+        { "hole": 6, "yards": 324 },
+        { "hole": 7, "yards": 398 },
+        { "hole": 8, "yards": 414 },
+        { "hole": 9, "yards": 151 },
+        { "hole": 10, "yards": 466 },
+        { "hole": 11, "yards": 471 },
+        { "hole": 12, "yards": 480 },
+        { "hole": 13, "yards": 170 },
+        { "hole": 14, "yards": 435 },
+        { "hole": 15, "yards": 537 },
+        { "hole": 16, "yards": 186 },
+        { "hole": 17, "yards": 390 },
+        { "hole": 18, "yards": 355 }
+      ]
+    },
+    "Yellow": {
+      "rating": 70.0,
+      "slope": 113,
+      "yards_out": 2906,
+      "yards_in": 3245,
+      "yards_total": 6151,
+      "holes": [
+        { "hole": 1, "yards": 287 },
+        { "hole": 2, "yards": 334 },
+        { "hole": 3, "yards": 479 },
+        { "hole": 4, "yards": 134 },
+        { "hole": 5, "yards": 436 },
+        { "hole": 6, "yards": 299 },
+        { "hole": 7, "yards": 398 },
+        { "hole": 8, "yards": 398 },
+        { "hole": 9, "yards": 141 },
+        { "hole": 10, "yards": 434 },
+        { "hole": 11, "yards": 427 },
+        { "hole": 12, "yards": 423 },
+        { "hole": 13, "yards": 160 },
+        { "hole": 14, "yards": 409 },
+        { "hole": 15, "yards": 487 },
+        { "hole": 16, "yards": 177 },
+        { "hole": 17, "yards": 390 },
+        { "hole": 18, "yards": 338 }
+      ]
+    },
+    "Red": {
+      "rating": 70.0,
+      "slope": 113,
+      "yards_out": 2804,
+      "yards_in": 3099,
+      "yards_total": 5903,
+      "holes": [
+        { "hole": 1, "yards": 280 },
+        { "hole": 2, "yards": 340 },
+        { "hole": 3, "yards": 471 },
+        { "hole": 4, "yards": 127 },
+        { "hole": 5, "yards": 420 },
+        { "hole": 6, "yards": 289 },
+        { "hole": 7, "yards": 392 },
+        { "hole": 8, "yards": 351 },
+        { "hole": 9, "yards": 134 },
+        { "hole": 10, "yards": 398 },
+        { "hole": 11, "yards": 420 },
+        { "hole": 12, "yards": 413 },
+        { "hole": 13, "yards": 135 },
+        { "hole": 14, "yards": 406 },
+        { "hole": 15, "yards": 466 },
+        { "hole": 16, "yards": 166 },
+        { "hole": 17, "yards": 379 },
+        { "hole": 18, "yards": 316 }
+      ]
+    },
+    "Mens_Par": {
+      "out": 35,
+      "in": 36,
+      "total": 71,
+      "holes": [4,4,5,3,4,4,4,4,3,4,4,5,3,4,5,3,4,4]
+    },
+    "Womens_Par": {
+      "out": 36,
+      "in": 38,
+      "total": 74,
+      "holes": [4,4,5,3,5,4,4,4,3,5,4,5,3,5,5,3,4,4]
+    },
+    "Mens_Hcp": {
+      "holes": [14,4,8,18,1,16,6,10,12,7,2,11,15,3,9,13,5,17]
+    },
+    "Womens_Hcp": {
+      "holes": [14,4,8,18,2,16,6,10,12,7,1,11,15,9,3,13,5,17]
+    }
+  },
+
+  "Gullane_No_2": {
+    "White": {
+      "yards_out": 3247,
+      "yards_in": 3149,
+      "yards_total": 6396,
+      "holes": [
+        { "hole": 1, "yards": 366 },
+        { "hole": 2, "yards": 334 },
+        { "hole": 3, "yards": 237 },
+        { "hole": 4, "yards": 454 },
+        { "hole": 5, "yards": 197 },
+        { "hole": 6, "yards": 537 },
+        { "hole": 7, "yards": 375 },
+        { "hole": 8, "yards": 393 },
+        { "hole": 9, "yards": 354 },
+        { "hole": 10, "yards": 381 },
+        { "hole": 11, "yards": 215 },
+        { "hole": 12, "yards": 419 },
+        { "hole": 13, "yards": 400 },
+        { "hole": 14, "yards": 366 },
+        { "hole": 15, "yards": 175 },
+        { "hole": 16, "yards": 527 },
+        { "hole": 17, "yards": 361 },
+        { "hole": 18, "yards": 305 }
+      ]
+    },
+    "Yellow": {
+      "yards_out": 3066,
+      "yards_in": 2949,
+      "yards_total": 6015,
+      "holes": [
+        { "hole": 1, "yards": 356 },
+        { "hole": 2, "yards": 326 },
+        { "hole": 3, "yards": 233 },
+        { "hole": 4, "yards": 425 },
+        { "hole": 5, "yards": 171 },
+        { "hole": 6, "yards": 498 },
+        { "hole": 7, "yards": 358 },
+        { "hole": 8, "yards": 352 },
+        { "hole": 9, "yards": 347 },
+        { "hole": 10, "yards": 340 },
+        { "hole": 11, "yards": 194 },
+        { "hole": 12, "yards": 408 },
+        { "hole": 13, "yards": 384 },
+        { "hole": 14, "yards": 336 },
+        { "hole": 15, "yards": 167 },
+        { "hole": 16, "yards": 471 },
+        { "hole": 17, "yards": 358 },
+        { "hole": 18, "yards": 291 }
+      ]
+    },
+    "Red": {
+      "yards_out": 2885,
+      "yards_in": 2681,
+      "yards_total": 5566,
+      "holes": [
+        { "hole": 1, "yards": 349 },
+        { "hole": 2, "yards": 320 },
+        { "hole": 3, "yards": 226 },
+        { "hole": 4, "yards": 418 },
+        { "hole": 5, "yards": 146 },
+        { "hole": 6, "yards": 429 },
+        { "hole": 7, "yards": 345 },
+        { "hole": 8, "yards": 309 },
+        { "hole": 9, "yards": 343 },
+        { "hole": 10, "yards": 314 },
+        { "hole": 11, "yards": 169 },
+        { "hole": 12, "yards": 372 },
+        { "hole": 13, "yards": 305 },
+        { "hole": 14, "yards": 293 },
+        { "hole": 15, "yards": 151 },
+        { "hole": 16, "yards": 449 },
+        { "hole": 17, "yards": 349 },
+        { "hole": 18, "yards": 279 }
+      ]
+    },
+    "Mens_Par": {
+      "out": 36,
+      "in": 35,
+      "total": 71,
+      "holes": [4,4,4,4,3,5,4,4,4,4,3,4,4,4,3,5,4,4]
+    },
+    "Womens_Par": {
+      "out": 37,
+      "in": 37,
+      "total": 74,
+      "holes": [4,4,4,5,3,5,4,4,4,4,4,5,4,4,3,5,4,4]
+    },
+    "Mens_Hcp": {
+      "holes": [5,15,17,1,9,13,7,3,11,12,10,4,2,8,14,6,16,18]
+    },
+    "Womens_Hcp": {
+      "holes": [3,9,17,5,13,15,1,11,7,6,10,18,2,12,14,4,8,16]
+    }
+  }
+}
+  "Gullane_No_3": {
+    "White": {
+      "rating": 70.0,
+      "slope": 113,
+      "yards_out": 2487,
+      "yards_in": 2765,
+      "yards_total": 5252,
+      "par_out": 34,
+      "par_in": 34,
+      "par_total": 68,
+      "holes": [
+        { "hole": 1, "yards": 341, "par": 4, "stroke_index": 1 },
+        { "hole": 2, "yards": 144, "par": 3, "stroke_index": 2 },
+        { "hole": 3, "yards": 293, "par": 4, "stroke_index": 3 },
+        { "hole": 4, "yards": 250, "par": 4, "stroke_index": 4 },
+        { "hole": 5, "yards": 314, "par": 4, "stroke_index": 5 },
+        { "hole": 6, "yards": 342, "par": 4, "stroke_index": 6 },
+        { "hole": 7, "yards": 311, "par": 4, "stroke_index": 7 },
+        { "hole": 8, "yards": 165, "par": 3, "stroke_index": 8 },
+        { "hole": 9, "yards": 327, "par": 4, "stroke_index": 9 },
+
+        { "hole": 10, "yards": 450, "par": 4, "stroke_index": 10 },
+        { "hole": 11, "yards": 135, "par": 3, "stroke_index": 11 },
+        { "hole": 12, "yards": 371, "par": 4, "stroke_index": 12 },
+        { "hole": 13, "yards": 186, "par": 3, "stroke_index": 13 },
+        { "hole": 14, "yards": 443, "par": 5, "stroke_index": 14 },
+        { "hole": 15, "yards": 169, "par": 3, "stroke_index": 15 },
+        { "hole": 16, "yards": 379, "par": 4, "stroke_index": 16 },
+        { "hole": 17, "yards": 328, "par": 4, "stroke_index": 17 },
+        { "hole": 18, "yards": 304, "par": 4, "stroke_index": 18 }
+      ]
+    }
+  },
+
+  "Kilspindie": {
+    "White": {
+      "yards_out": 2881,
+      "yards_in": 2613,
+      "yards_total": 5494,
+      "par_out": 35,
+      "par_in": 34,
+      "par_total": 69,
+      "holes": [
+        { "hole": 1, "yards": 158, "par": 3, "stroke_index": 13 },
+        { "hole": 2, "yards": 516, "par": 5, "stroke_index": 5 },
+        { "hole": 3, "yards": 411, "par": 4, "stroke_index": 1 },
+        { "hole": 4, "yards": 369, "par": 4, "stroke_index": 9 },
+        { "hole": 5, "yards": 290, "par": 4, "stroke_index": 15 },
+        { "hole": 6, "yards": 280, "par": 4, "stroke_index": 17 },
+        { "hole": 7, "yards": 382, "par": 4, "stroke_index": 3 },
+        { "hole": 8, "yards": 167, "par": 3, "stroke_index": 11 },
+        { "hole": 9, "yards": 308, "par": 4, "stroke_index": 7 },
+
+        { "hole": 10, "yards": 152, "par": 3, "stroke_index": 10 },
+        { "hole": 11, "yards": 294, "par": 4, "stroke_index": 18 },
+        { "hole": 12, "yards": 269, "par": 4, "stroke_index": 8 },
+        { "hole": 13, "yards": 182, "par": 3, "stroke_index": 12 },
+        { "hole": 14, "yards": 340, "par": 4, "stroke_index": 4 },
+        { "hole": 15, "yards": 436, "par": 4, "stroke_index": 2 },
+        { "hole": 16, "yards": 411, "par": 4, "stroke_index": 14 },
+        { "hole": 17, "yards": 279, "par": 4, "stroke_index": 6 },
+        { "hole": 18, "yards": 250, "par": 4, "stroke_index": 16 }
+      ]
+    },
+
+    "Yellow": {
+      "yards_out": 2724,
+      "yards_in": 2485,
+      "yards_total": 5209,
+      "par_out": 35,
+      "par_in": 34,
+      "par_total": 69,
+      "holes": [
+        { "hole": 1, "yards": 150, "par": 3, "stroke_index": 13 },
+        { "hole": 2, "yards": 506, "par": 5, "stroke_index": 5 },
+        { "hole": 3, "yards": 384, "par": 4, "stroke_index": 1 },
+        { "hole": 4, "yards": 332, "par": 4, "stroke_index": 9 },
+        { "hole": 5, "yards": 272, "par": 4, "stroke_index": 15 },
+        { "hole": 6, "yards": 268, "par": 4, "stroke_index": 17 },
+        { "hole": 7, "yards": 363, "par": 4, "stroke_index": 3 },
+        { "hole": 8, "yards": 151, "par": 3, "stroke_index": 11 },
+        { "hole": 9, "yards": 298, "par": 4, "stroke_index": 7 },
+
+        { "hole": 10, "yards": 142, "par": 3, "stroke_index": 10 },
+        { "hole": 11, "yards": 282, "par": 4, "stroke_index": 18 },
+        { "hole": 12, "yards": 264, "par": 4, "stroke_index": 8 },
+        { "hole": 13, "yards": 168, "par": 3, "stroke_index": 12 },
+        { "hole": 14, "yards": 325, "par": 4, "stroke_index": 4 },
+        { "hole": 15, "yards": 422, "par": 4, "stroke_index": 2 },
+        { "hole": 16, "yards": 384, "par": 4, "stroke_index": 14 },
+        { "hole": 17, "yards": 270, "par": 4, "stroke_index": 6 },
+        { "hole": 18, "yards": 228, "par": 4, "stroke_index": 16 }
+      ]
+    },
+
+    "Red": {
+      "yards_out": 2681,
+      "yards_in": 2411,
+      "yards_total": 5092,
+      "par_out": 35,
+      "par_in": 34,
+      "par_total": 69,
+      "holes": [
+        { "hole": 1, "yards": 148, "par": 3, "stroke_index": 13 },
+        { "hole": 2, "yards": 492, "par": 5, "stroke_index": 5 },
+        { "hole": 3, "yards": 368, "par": 4, "stroke_index": 1 },
+        { "hole": 4, "yards": 337, "par": 4, "stroke_index": 9 },
+        { "hole": 5, "yards": 279, "par": 4, "stroke_index": 15 },
+        { "hole": 6, "yards": 268, "par": 4, "stroke_index": 17 },
+        { "hole": 7, "yards": 350, "par": 4, "stroke_index": 3 },
+        { "hole": 8, "yards": 147, "par": 3, "stroke_index": 11 },
+        { "hole": 9, "yards": 292, "par": 4, "stroke_index": 7 },
+
+        { "hole": 10, "yards": 142, "par": 3, "stroke_index": 10 },
+        { "hole": 11, "yards": 264, "par": 4, "stroke_index": 18 },
+        { "hole": 12, "yards": 264, "par": 4, "stroke_index": 8 },
+        { "hole": 13, "yards": 149, "par": 3, "stroke_index": 12 },
+        { "hole": 14, "yards": 295, "par": 4, "stroke_index": 4 },
+        { "hole": 15, "yards": 420, "par": 4, "stroke_index": 2 },
+        { "hole": 16, "yards": 376, "par": 4, "stroke_index": 14 },
+        { "hole": 17, "yards": 262, "par": 4, "stroke_index": 6 },
+        { "hole": 18, "yards": 239, "par": 4, "stroke_index": 16 }
+      ]
+    },
+
+    "Blue": {
+      "yards_out": 2697,
+      "yards_in": 2411,
+      "yards_total": 5108,
+      "par_out": 35,
+      "par_in": 34,
+      "par_total": 69,
+      "holes": [
+        { "hole": 1, "yards": 148, "par": 3, "stroke_index": 13 },
+        { "hole": 2, "yards": 492, "par": 5, "stroke_index": 5 },
+        { "hole": 3, "yards": 384, "par": 4, "stroke_index": 1 },
+        { "hole": 4, "yards": 337, "par": 4, "stroke_index": 9 },
+        { "hole": 5, "yards": 279, "par": 4, "stroke_index": 15 },
+        { "hole": 6, "yards": 268, "par": 4, "stroke_index": 17 },
+        { "hole": 7, "yards": 350, "par": 4, "stroke_index": 3 },
+        { "hole": 8, "yards": 147, "par": 3, "stroke_index": 11 },
+        { "hole": 9, "yards": 292, "par": 4, "stroke_index": 7 },
+
+        { "hole": 10, "yards": 142, "par": 3, "stroke_index": 10 },
+        { "hole": 11, "yards": 264, "par": 4, "stroke_index": 18 },
+        { "hole": 12, "yards": 264, "par": 4, "stroke_index": 8 },
+        { "hole": 13, "yards": 149, "par": 3, "stroke_index": 12 },
+        { "hole": 14, "yards": 295, "par": 4, "stroke_index": 4 },
+        { "hole": 15, "yards": 420, "par": 4, "stroke_index": 2 },
+        { "hole": 16, "yards": 376, "par": 4, "stroke_index": 14 },
+        { "hole": 17, "yards": 262, "par": 4, "stroke_index": 6 },
+        { "hole": 18, "yards": 239, "par": 4, "stroke_index": 16 }
+      ]
+    }
+  }
+  "North_Berwick_West_Links": {
+    "Black": {
+      "yards_out": 3399,
+      "yards_in": 3180,
+      "yards_total": 6579,
+      "holes": [
+        { "hole": 1, "yards": 342 },
+        { "hole": 2, "yards": 433 },
+        { "hole": 3, "yards": 474 },
+        { "hole": 4, "yards": 177 },
+        { "hole": 5, "yards": 372 },
+        { "hole": 6, "yards": 181 },
+        { "hole": 7, "yards": 366 },
+        { "hole": 8, "yards": 532 },
+        { "hole": 9, "yards": 522 },
+
+        { "hole": 10, "yards": 172 },
+        { "hole": 11, "yards": 549 },
+        { "hole": 12, "yards": 426 },
+        { "hole": 13, "yards": 388 },
+        { "hole": 14, "yards": 375 },
+        { "hole": 15, "yards": 189 },
+        { "hole": 16, "yards": 378 },
+        { "hole": 17, "yards": 426 },
+        { "hole": 18, "yards": 277 }
+      ]
+    },
+
+    "White": {
+      "yards_out": 3341,
+      "yards_in": 3156,
+      "yards_total": 6497,
+      "holes": [
+        { "hole": 1, "yards": 342 },
+        { "hole": 2, "yards": 433 },
+        { "hole": 3, "yards": 459 },
+        { "hole": 4, "yards": 177 },
+        { "hole": 5, "yards": 372 },
+        { "hole": 6, "yards": 161 },
+        { "hole": 7, "yards": 366 },
+        { "hole": 8, "yards": 509 },
+        { "hole": 9, "yards": 522 },
+
+        { "hole": 10, "yards": 172 },
+        { "hole": 11, "yards": 549 },
+        { "hole": 12, "yards": 402 },
+        { "hole": 13, "yards": 388 },
+        { "hole": 14, "yards": 375 },
+        { "hole": 15, "yards": 189 },
+        { "hole": 16, "yards": 378 },
+        { "hole": 17, "yards": 426 },
+        { "hole": 18, "yards": 277 }
+      ]
+    },
+
+    "Blue": {
+      "yards_out": 3190,
+      "yards_in": 2978,
+      "yards_total": 6168,
+      "holes": [
+        { "hole": 1, "yards": 322 },
+        { "hole": 2, "yards": 419 },
+        { "hole": 3, "yards": 444 },
+        { "hole": 4, "yards": 168 },
+        { "hole": 5, "yards": 360 },
+        { "hole": 6, "yards": 139 },
+        { "hole": 7, "yards": 345 },
+        { "hole": 8, "yards": 489 },
+        { "hole": 9, "yards": 504 },
+
+        { "hole": 10, "yards": 153 },
+        { "hole": 11, "yards": 526 },
+        { "hole": 12, "yards": 366 },
+        { "hole": 13, "yards": 363 },
+        { "hole": 14, "yards": 359 },
+        { "hole": 15, "yards": 178 },
+        { "hole": 16, "yards": 359 },
+        { "hole": 17, "yards": 405 },
+        { "hole": 18, "yards": 269 }
+      ]
+    },
+
+    "Red": {
+      "yards_out": 2919,
+      "yards_in": 2856,
+      "yards_total": 5775,
+      "holes": [
+        { "hole": 1, "yards": 302 },
+        { "hole": 2, "yards": 406 },
+        { "hole": 3, "yards": 430 },
+        { "hole": 4, "yards": 163 },
+        { "hole": 5, "yards": 316 },
+        { "hole": 6, "yards": 125 },
+        { "hole": 7, "yards": 326 },
+        { "hole": 8, "yards": 427 },
+        { "hole": 9, "yards": 424 },
+
+        { "hole": 10, "yards": 145 },
+        { "hole": 11, "yards": 478 },
+        { "hole": 12, "yards": 352 },
+        { "hole": 13, "yards": 333 },
+        { "hole": 14, "yards": 344 },
+        { "hole": 15, "yards": 173 },
+        { "hole": 16, "yards": 370 },
+        { "hole": 17, "yards": 417 },
+        { "hole": 18, "yards": 244 }
+      ]
+    },
+
+    "Yellow": {
+      "yards_out": 2379,
+      "yards_in": 2424,
+      "yards_total": 4803,
+      "holes": [
+        { "hole": 1, "yards": 284 },
+        { "hole": 2, "yards": 324 },
+        { "hole": 3, "yards": 366 },
+        { "hole": 4, "yards": 124 },
+        { "hole": 5, "yards": 258 },
+        { "hole": 6, "yards": 112 },
+        { "hole": 7, "yards": 228 },
+        { "hole": 8, "yards": 337 },
+        { "hole": 9, "yards": 346 },
+
+        { "hole": 10, "yards": 136 },
+        { "hole": 11, "yards": 375 },
+        { "hole": 12, "yards": 385 },
+        { "hole": 13, "yards": 269 },
+        { "hole": 14, "yards": 225 },
+        { "hole": 15, "yards": 112 },
+        { "hole": 16, "yards": 334 },
+        { "hole": 17, "yards": 344 },
+        { "hole": 18, "yards": 244 }
+      ]
+    },
+
+    "Mens_Par": {
+      "out": 36,
+      "in": 35,
+      "total": 71,
+      "holes": [4,4,4,3,4,3,4,5,5,3,5,4,4,4,3,4,4,4]
+    },
+
+    "Womens_Par": {
+      "out": 38,
+      "in": 37,
+      "total": 75,
+      "holes": [4,5,5,3,4,3,4,5,5,3,5,5,4,4,3,4,5,4]
+    },
+
+    "Mens_Hcp": {
+      "holes": [13,7,3,11,1,17,5,15,9,16,10,6,2,12,14,8,4,18]
+    },
+
+    "Womens_Hcp": {
+      "holes": [13,15,5,9,1,17,3,11,7,16,10,6,8,2,12,4,14,18]
+    }
+  },
+
+  "The_Glen": {
+    "White": {
+      "yards_out": 3176,
+      "yards_in": 3099,
+      "yards_total": 6275,
+      "par_out": 35,
+      "par_in": 35,
+      "par_total": 70,
+      "holes": [
+        { "hole": 1, "yards": 332, "par": 4, "stroke_index": 9 },
+        { "hole": 2, "yards": 372, "par": 4, "stroke_index": 13 },
+        { "hole": 3, "yards": 366, "par": 4, "stroke_index": 7 },
+        { "hole": 4, "yards": 180, "par": 3, "stroke_index": 17 },
+        { "hole": 5, "yards": 386, "par": 4, "stroke_index": 3 },
+        { "hole": 6, "yards": 536, "par": 5, "stroke_index": 1 },
+        { "hole": 7, "yards": 375, "par": 4, "stroke_index": 15 },
+        { "hole": 8, "yards": 425, "par": 4, "stroke_index": 5 },
+        { "hole": 9, "yards": 204, "par": 3, "stroke_index": 11 },
+
+        { "hole": 10, "yards": 346, "par": 4, "stroke_index": 10 },
+        { "hole": 11, "yards": 341, "par": 4, "stroke_index": 14 },
+        { "hole": 12, "yards": 458, "par": 4, "stroke_index": 2 },
+        { "hole": 13, "yards": 148, "par": 3, "stroke_index": 16 },
+        { "hole": 14, "yards": 365, "par": 4, "stroke_index": 6 },
+        { "hole": 15, "yards": 473, "par": 5, "stroke_index": 18 },
+        { "hole": 16, "yards": 190, "par": 3, "stroke_index": 8 },
+        { "hole": 17, "yards": 415, "par": 4, "stroke_index": 4 },
+        { "hole": 18, "yards": 363, "par": 4, "stroke_index": 12 }
+      ]
+    },
+
+    "Yellow": {
+      "yards_out": 3041,
+      "yards_in": 3007,
+      "yards_total": 6048,
+      "par_out": 35,
+      "par_in": 35,
+      "par_total": 70,
+      "holes": [
+        { "hole": 1, "yards": 330, "par": 4, "stroke_index": 9 },
+        { "hole": 2, "yards": 361, "par": 4, "stroke_index": 13 },
+        { "hole": 3, "yards": 343, "par": 4, "stroke_index": 7 },
+        { "hole": 4, "yards": 178, "par": 3, "stroke_index": 17 },
+        { "hole": 5, "yards": 368, "par": 4, "stroke_index": 3 },
+        { "hole": 6, "yards": 488, "par": 5, "stroke_index": 1 },
+        { "hole": 7, "yards": 364, "par": 4, "stroke_index": 15 },
+        { "hole": 8, "yards": 409, "par": 4, "stroke_index": 5 },
+        { "hole": 9, "yards": 200, "par": 3, "stroke_index": 11 },
+
+        { "hole": 10, "yards": 344, "par": 4, "stroke_index": 10 },
+        { "hole": 11, "yards": 336, "par": 4, "stroke_index": 14 },
+        { "hole": 12, "yards": 448, "par": 4, "stroke_index": 2 },
+        { "hole": 13, "yards": 136, "par": 3, "stroke_index": 16 },
+        { "hole": 14, "yards": 333, "par": 4, "stroke_index": 6 },
+        { "hole": 15, "yards": 467, "par": 5, "stroke_index": 18 },
+        { "hole": 16, "yards": 186, "par": 3, "stroke_index": 8 },
+        { "hole": 17, "yards": 394, "par": 4, "stroke_index": 4 },
+        { "hole": 18, "yards": 363, "par": 4, "stroke_index": 12 }
+      ]
+    },
+
+    "Red": {
+      "yards_out": 2923,
+      "yards_in": 2850,
+      "yards_total": 5773,
+      "par_out": 36,
+      "par_in": 37,
+      "par_total": 73,
+      "holes": [
+        { "hole": 1, "yards": 327, "par": 4, "stroke_index": 7 },
+        { "hole": 2, "yards": 343, "par": 4, "stroke_index": 9 },
+        { "hole": 3, "yards": 334, "par": 4, "stroke_index": 11 },
+        { "hole": 4, "yards": 162, "par": 3, "stroke_index": 15 },
+        { "hole": 5, "yards": 354, "par": 4, "stroke_index": 3 },
+        { "hole": 6, "yards": 467, "par": 5, "stroke_index": 1 },
+        { "hole": 7, "yards": 360, "par": 4, "stroke_index": 13 },
+        { "hole": 8, "yards": 379, "par": 4, "stroke_index": 5 },
+        { "hole": 9, "yards": 197, "par": 4, "stroke_index": 18 },
+
+        { "hole": 10, "yards": 340, "par": 4, "stroke_index": 2 },
+        { "hole": 11, "yards": 319, "par": 4, "stroke_index": 14 },
+        { "hole": 12, "yards": 432, "par": 5, "stroke_index": 12 },
+        { "hole": 13, "yards": 128, "par": 3, "stroke_index": 17 },
+        { "hole": 14, "yards": 321, "par": 4, "stroke_index": 4 },
+        { "hole": 15, "yards": 399, "par": 5, "stroke_index": 8 },
+        { "hole": 16, "yards": 179, "par": 3, "stroke_index": 10 },
+        { "hole": 17, "yards": 374, "par": 5, "stroke_index": 16 },
+        { "hole": 18, "yards": 358, "par": 4, "stroke_index": 6 }
+      ]
+    },
+
+    "Blue": {
+      "yards_out": 2498,
+      "yards_in": 2303,
+      "yards_total": 4801,
+      "par_out": 33,
+      "par_in": 34,
+      "par_total": 67,
+      "holes": [
+        { "hole": 1, "yards": 308, "par": 4, "stroke_index": 9 },
+        { "hole": 2, "yards": 299, "par": 4, "stroke_index": 13 },
+        { "hole": 3, "yards": 242, "par": 3, "stroke_index": 7 },
+        { "hole": 4, "yards": 112, "par": 3, "stroke_index": 17 },
+        { "hole": 5, "yards": 337, "par": 4, "stroke_index": 3 },
+        { "hole": 6, "yards": 431, "par": 4, "stroke_index": 1 },
+        { "hole": 7, "yards": 290, "par": 4, "stroke_index": 15 },
+        { "hole": 8, "yards": 337, "par": 4, "stroke_index": 5 },
+        { "hole": 9, "yards": 142, "par": 3, "stroke_index": 11 },
+
+        { "hole": 10, "yards": 253, "par": 4, "stroke_index": 10 },
+        { "hole": 11, "yards": 255, "par": 4, "stroke_index": 14 },
+        { "hole": 12, "yards": 315, "par": 4, "stroke_index": 2 },
+        { "hole": 13, "yards": 92,  "par": 3, "stroke_index": 16 },
+        { "hole": 14, "yards": 281, "par": 4, "stroke_index": 6 },
+        { "hole": 15, "yards": 383, "par": 4, "stroke_index": 18 },
+        { "hole": 16, "yards": 163, "par": 3, "stroke_index": 8 },
+        { "hole": 17, "yards": 279, "par": 4, "stroke_index": 4 },
+        { "hole": 18, "yards": 282, "par": 4, "stroke_index": 12 }
+      ]
+    }
+  }
+}
