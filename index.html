@@ -2,61 +2,49 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>PinSeeker | East Lothian Links</title>
+    <title>PinSeeker Pro | Full Library</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #0f172a; --surface: rgba(30, 41, 59, 0.95); --accent: #38bdf8; --success: #22c55e; --danger: #ef4444; --text: #f1f5f9; --text-muted: #94a3b8; --border: #334155; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); padding: 0; margin: 0; font-size: 13px; line-height: 1.4; }
-        .brand-header { padding: 20px 15px; text-align: center; border-bottom: 1px solid var(--border); background: #1e293b; }
-        .main-title { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; margin: 0; color: var(--accent); text-transform: uppercase; }
-        
-        .controls { background: var(--surface); padding: 15px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); padding: 0; margin: 0; font-size: 13px; }
+        .brand-header { padding: 15px; text-align: center; background: #1e293b; border-bottom: 1px solid var(--border); }
+        .main-title { font-family: 'Montserrat', sans-serif; font-size: 22px; color: var(--accent); text-transform: uppercase; }
+        .controls { background: var(--surface); padding: 15px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
         .setup-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-        select, input { background: #0f172a; color: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 10px; font-size: 13px; width: 100%; box-sizing: border-box; }
-        
-        .btn-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; }
-        button { padding: 10px 14px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 11px; transition: opacity 0.2s; }
-        button:active { opacity: 0.7; }
-        .btn-add { background: var(--success); color: #fff; }
-        .btn-archive { background: #f59e0b; color: #fff; }
-        .btn-email { background: #6366f1; color: #fff; }
-        .btn-reset { background: var(--danger); color: #fff; }
-
-        .card { background: var(--surface); margin: 10px; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; }
-        table { border-collapse: collapse; width: 100%; font-size: 12px; }
-        th { background: #111827; color: var(--text-muted); padding: 10px 5px; text-align: center; }
-        td { border-bottom: 1px solid var(--border); padding: 8px 4px; text-align: center; }
-        
-        .score-in { width: 40px; text-align: center; font-weight: 800; font-size: 16px; border: 1px solid var(--border); border-radius: 4px; padding: 5px 0; }
-        .pts-label { color: var(--accent); font-size: 10px; font-weight: bold; display: block; margin-top: 2px; }
-        
+        select { background: #0f172a; color: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 10px; width: 100%; }
+        .btn-row { display: flex; flex-wrap: wrap; gap: 6px; justify-content: space-between; }
+        button { padding: 10px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 10px; }
+        .btn-add { background: var(--success); color: white; }
+        .btn-archive { background: #f59e0b; color: white; }
+        .btn-email { background: #6366f1; color: white; }
+        .btn-reset { background: var(--danger); color: white; }
+        .btn-dl { background: #64748b; color: white; }
+        .card { background: var(--surface); margin: 10px; border-radius: 12px; border: 1px solid var(--border); overflow-x: auto; }
+        table { border-collapse: collapse; width: 100%; }
+        th { background: #111827; color: var(--text-muted); padding: 8px; font-size: 11px; }
+        td { border-bottom: 1px solid var(--border); padding: 6px; text-align: center; }
+        .score-in { width: 35px; text-align: center; font-weight: 800; font-size: 16px; border: 1px solid var(--border); border-radius: 4px; background: #0f172a; color: #fff; }
+        .pts-label { color: var(--accent); font-size: 9px; font-weight: bold; display: block; }
         .total-row { background: var(--accent) !important; color: #0f172a !important; font-weight: 800; }
-        .history-section { padding: 15px; border-top: 2px solid var(--accent); background: #111827; }
-        .history-item { background: #1e293b; padding: 10px; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid var(--accent); font-size: 11px; }
+        .history-section { padding: 15px; border-top: 2px solid var(--accent); background: #0f172a; }
+        .history-item { background: #1e293b; padding: 10px; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid var(--accent); white-space: pre-wrap; font-family: monospace; font-size: 11px; }
     </style>
 </head>
 <body>
 
-<div class="brand-header">
-    <div class="main-title">PinSeeker Pro</div>
-</div>
+<div class="brand-header"><div class="main-title">PinSeeker V2.5</div></div>
 
 <div class="controls">
     <div class="setup-row">
-        <select id="courseSelect" onchange="populateTees()">
-            <option value="">-- Select Course --</option>
-        </select>
-        <select id="teeSelect" onchange="loadSelectedCourse()">
-            <option value="">-- Tee --</option>
-        </select>
+        <select id="courseSelect" onchange="populateTees()"><option value="">-- Course --</option></select>
+        <select id="teeSelect" onchange="loadSelectedCourse()"><option value="">-- Tee --</option></select>
     </div>
     <div class="btn-row">
-        <div>
-            <button class="btn-add" onclick="addPlayer()">+ Player</button>
-            <button class="btn-archive" onclick="archiveCurrentRound()">Archive</button>
-            <button class="btn-email" onclick="emailScores()">Email</button>
-        </div>
+        <button class="btn-add" onclick="addPlayer()">+ Player</button>
+        <button class="btn-archive" onclick="archiveCurrentRound()">Archive</button>
+        <button class="btn-email" onclick="emailScores()">Email Card</button>
+        <button class="btn-dl" onclick="downloadHistory()">Backup</button>
         <button class="btn-reset" onclick="clearCurrent()">Reset</button>
     </div>
 </div>
@@ -64,7 +52,7 @@
 <div id="app"></div>
 
 <div class="history-section">
-    <h3 style="margin-top:0; color:var(--accent)">Round History</h3>
+    <h3 style="color:var(--accent); margin-top:0;">Round Archives</h3>
     <div id="history-list"></div>
 </div>
 
@@ -89,7 +77,7 @@
             "Yellow": { "dist": [150,506,384,332,272,268,363,151,298,142,282,264,168,325,422,384,270,228], "pars": [3,5,4,4,4,4,4,3,4,3,4,4,3,4,4,4,4,4], "si": [13,5,1,9,15,17,3,11,7,10,18,8,12,4,2,14,6,16] },
             "Red": { "dist": [148,492,368,337,279,268,350,147,292,142,264,264,149,295,420,376,262,239], "pars": [3,5,4,4,4,4,4,3,4,3,4,4,3,4,4,4,4,4], "si": [13,5,1,9,15,17,3,11,7,10,18,8,12,4,2,14,6,16] }
         },
-        "North Berwick West Links": {
+        "North Berwick West": {
             "Black": { "dist": [342,433,474,177,372,181,366,532,522,172,549,426,388,375,189,378,426,277], "pars": [4,4,4,3,4,3,4,5,5,3,5,4,4,4,3,4,4,4], "si": [13,7,3,11,1,17,5,15,9,16,10,6,2,12,14,8,4,18] },
             "White": { "dist": [342,433,459,177,372,161,366,509,522,172,549,402,388,375,189,378,426,277], "pars": [4,4,4,3,4,3,4,5,5,3,5,4,4,4,3,4,4,4], "si": [13,7,3,11,1,17,5,15,9,16,10,6,2,12,14,8,4,18] },
             "Blue": { "dist": [322,419,444,168,360,139,345,489,504,153,526,366,363,359,178,359,405,269], "pars": [4,4,4,3,4,3,4,5,5,3,5,4,4,4,3,4,4,4], "si": [13,7,3,11,1,17,5,15,9,16,10,6,2,12,14,8,4,18] },
@@ -102,7 +90,7 @@
         }
     };
 
-    let golfData = JSON.parse(localStorage.getItem("PINSEEKER_V2")) || {
+    let golfData = JSON.parse(localStorage.getItem("PINSEEKER_V2_5")) || {
         course: "", tee: "", players: [], pars: [], si: [], dist: [], history: []
     };
 
@@ -112,8 +100,7 @@
         teeSelect.innerHTML = '<option value="">-- Tee --</option>';
         if (COURSE_LIBRARY[cName]) {
             Object.keys(COURSE_LIBRARY[cName]).forEach(t => {
-                let opt = document.createElement('option');
-                opt.value = t; opt.innerText = t;
+                let opt = document.createElement('option'); opt.value = t; opt.innerText = t;
                 teeSelect.appendChild(opt);
             });
         }
@@ -131,11 +118,12 @@
     }
 
     function addPlayer() {
-        const name = prompt("Player Name:");
-        if (!name) return;
+        const name = prompt("Name:");
         const hcp = prompt("Handicap:", "0");
-        golfData.players.push({ name, hcp: parseInt(hcp) || 0, scores: new Array(18).fill(0) });
-        save(); render();
+        if (name) {
+            golfData.players.push({ name, hcp: parseInt(hcp) || 0, scores: new Array(18).fill(0) });
+            save(); render();
+        }
     }
 
     function updateScore(pIdx, hIdx, val) {
@@ -149,34 +137,42 @@
         const par = golfData.pars[hIdx];
         const si = golfData.si[hIdx];
         const strokes = Math.floor(p.hcp / 18) + (p.hcp % 18 >= si ? 1 : 0);
-        const net = score - strokes;
-        return Math.max(0, (par + 2) - net);
+        return Math.max(0, (par + 2) - (score - strokes));
+    }
+
+    function generateFullReport() {
+        let report = `ROUND REPORT: ${golfData.course} (${golfData.tee})\nDATE: ${new Date().toLocaleDateString()}\n\n`;
+        golfData.players.forEach(p => {
+            let totalPts = 0;
+            let holeDetail = [];
+            p.scores.forEach((s, i) => {
+                const pts = calcStableford(p, i);
+                totalPts += pts;
+                holeDetail.push(`H${i+1}:${s||'-'}(${pts}pts)`);
+            });
+            report += `${p.name} (HCP ${p.hcp}): ${totalPts} points\n${holeDetail.join(', ')}\n\n`;
+        });
+        return report;
     }
 
     function archiveCurrentRound() {
         if (!golfData.course || golfData.players.length === 0) return;
-        const summary = {
-            date: new Date().toLocaleDateString(),
-            course: golfData.course,
-            results: golfData.players.map(p => {
-                const totalPts = p.scores.reduce((sum, s, idx) => sum + calcStableford(p, idx), 0);
-                return `${p.name}: ${totalPts}pts`;
-            }).join(', ')
-        };
-        golfData.history.unshift(summary);
-        alert("Round Archived to History");
+        golfData.history.unshift(generateFullReport());
+        alert("Saved to Round Archives.");
         save(); render();
     }
 
     function emailScores() {
-        if (golfData.players.length === 0) return;
-        let body = `Scores for ${golfData.course} (${golfData.tee}):\n\n`;
-        golfData.players.forEach(p => {
-            const totalScore = p.scores.reduce((a, b) => a + b, 0);
-            const totalPts = p.scores.reduce((sum, s, idx) => sum + calcStableford(p, idx), 0);
-            body += `${p.name} (Hcp ${p.hcp}): Gross ${totalScore}, Points ${totalPts}\n`;
-        });
+        const body = generateFullReport();
         window.location.href = `mailto:?subject=Golf Scores - ${golfData.course}&body=${encodeURIComponent(body)}`;
+    }
+
+    function downloadHistory() {
+        const blob = new Blob([golfData.history.join("\n---\n")], {type: 'text/plain'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'PinSeeker_Backup.txt';
+        a.click();
     }
 
     function clearCurrent() {
@@ -186,46 +182,32 @@
         }
     }
 
-    function save() { localStorage.setItem("PINSEEKER_V2", JSON.stringify(golfData)); }
+    function save() { localStorage.setItem("PINSEEKER_V2_5", JSON.stringify(golfData)); }
 
     function render() {
         const app = document.getElementById('app');
-        const historyList = document.getElementById('history-list');
-        
         if (golfData.players.length === 0) {
-            app.innerHTML = '<p style="text-align:center; padding:50px; color:var(--text-muted)">Select a course and add players to begin.</p>';
+            app.innerHTML = '<p style="text-align:center; padding:40px; color:var(--text-muted)">Select course and add players.</p>';
         } else {
-            let html = `<div class="card"><table><tr><th>Hole</th><th>P / SI</th>`;
-            golfData.players.forEach(p => html += `<th>${p.name}<br><small>Hcp ${p.hcp}</small></th>`);
+            let html = `<div class="card"><table><tr><th>Hole</th>`;
+            golfData.players.forEach(p => html += `<th>${p.name}</th>`);
             html += `</tr>`;
-            
             for (let i = 0; i < 18; i++) {
-                html += `<tr>
-                    <td><b>${i+1}</b><br><small>${golfData.dist[i]}y</small></td>
-                    <td>${golfData.pars[i]} / ${golfData.si[i]}</td>`;
+                html += `<tr><td>${i+1}<br><small>P${golfData.pars[i]}</small></td>`;
                 golfData.players.forEach((p, pIdx) => {
-                    html += `<td>
-                        <input type="number" class="score-in" value="${p.scores[i] || ''}" onchange="updateScore(${pIdx}, ${i}, this.value)">
-                        <span class="pts-label">${calcStableford(p, i)}pts</span>
-                    </td>`;
+                    html += `<td><input type="number" class="score-in" value="${p.scores[i] || ''}" onchange="updateScore(${pIdx}, ${i}, this.value)"><span class="pts-label">${calcStableford(p, i)}pts</span></td>`;
                 });
                 html += `</tr>`;
             }
-            
-            html += `<tr class="total-row"><td>TOTAL</td><td>-</td>`;
+            html += `<tr class="total-row"><td>PTS</td>`;
             golfData.players.forEach(p => {
-                const totalPts = p.scores.reduce((sum, s, idx) => sum + calcStableford(p, idx), 0);
-                html += `<td>${totalPts} pts</td>`;
+                const total = p.scores.reduce((sum, _, idx) => sum + calcStableford(p, idx), 0);
+                html += `<td>${total}</td>`;
             });
             html += `</tr></table></div>`;
             app.innerHTML = html;
         }
-
-        historyList.innerHTML = golfData.history.map(h => `
-            <div class="history-item">
-                <b>${h.date} - ${h.course}</b><br>${h.results}
-            </div>
-        `).join('') || '<small style="color:var(--text-muted)">No archived rounds.</small>';
+        document.getElementById('history-list').innerHTML = golfData.history.map(h => `<div class="history-item">${h}</div>`).join('') || '<small style="color:var(--text-muted)">No archived rounds.</small>';
     }
 
     const cs = document.getElementById('courseSelect');
@@ -235,6 +217,5 @@
     });
     render();
 </script>
-
 </body>
 </html>
