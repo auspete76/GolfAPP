@@ -2,32 +2,31 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>PinSeeker Pro | V2.7</title>
+    <title>PinSeeker Pro | V2.9</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #0f172a; --surface: rgba(30, 41, 59, 0.95); --accent: #38bdf8; --success: #22c55e; --danger: #ef4444; --text: #f1f5f9; --text-muted: #94a3b8; --border: #334155; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); padding: 0; margin: 0; font-size: 13px; }
         
-        /* Logo Header Style */
-        .brand-header { 
-            padding: 20px 15px; 
-            text-align: center; 
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); 
-            border-bottom: 2px solid var(--accent);
-        }
-        .logo-container { display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .logo-icon { width: 32px; height: 32px; background: var(--accent); border-radius: 50%; position: relative; }
-        .logo-icon::after { content: ''; position: absolute; width: 4px; height: 18px; background: white; top: 4px; left: 14px; border-radius: 2px; }
-        .main-title { font-family: 'Montserrat', sans-serif; font-size: 26px; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+        /* Golf Flag Logo CSS */
+        .brand-header { padding: 25px 15px; text-align: center; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-bottom: 3px solid var(--accent); }
+        .logo-container { display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .golf-flag { position: relative; width: 40px; height: 40px; background: #1e293b; border-radius: 8px; border: 1px solid var(--border); }
+        .flag-pole { position: absolute; left: 22px; top: 8px; width: 3px; height: 24px; background: #fff; border-radius: 2px; }
+        .flag-top { position: absolute; left: 8px; top: 8px; width: 15px; height: 10px; background: var(--danger); clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+        .hole-circle { position: absolute; left: 18px; bottom: 6px; width: 12px; height: 4px; background: rgba(0,0,0,0.5); border-radius: 50%; }
+        
+        .main-title { font-family: 'Montserrat', sans-serif; font-size: 28px; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
         .main-title span { color: var(--accent); }
 
-        .controls { background: var(--surface); padding: 15px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.3); }
+        .controls { background: var(--surface); padding: 15px; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.3); backdrop-filter: blur(10px); }
         .setup-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-        select { background: #0f172a; color: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 10px; width: 100%; font-weight: bold; }
+        select { background: #0f172a; color: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 10px; width: 100%; font-weight: bold; appearance: none; }
         
         .btn-row { display: flex; flex-wrap: wrap; gap: 6px; justify-content: space-between; }
-        button { padding: 10px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 10px; flex: 1; }
+        button { padding: 10px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 10px; flex: 1; transition: opacity 0.2s; }
+        button:active { opacity: 0.7; }
         .btn-add { background: var(--success); color: white; }
         .btn-archive { background: #f59e0b; color: white; }
         .btn-email { background: #6366f1; color: white; }
@@ -38,27 +37,31 @@
         th { background: #111827; color: var(--text-muted); padding: 12px 8px; font-size: 11px; text-transform: uppercase; }
         td { border-bottom: 1px solid var(--border); padding: 8px; text-align: center; }
         
-        .score-in { width: 40px; text-align: center; font-weight: 800; font-size: 18px; border: 2px solid var(--border); border-radius: 6px; background: #0f172a; color: #fff; outline: none; transition: border-color 0.2s; }
-        .score-in:focus { border-color: var(--accent); }
+        .score-in { width: 42px; text-align: center; font-weight: 800; font-size: 18px; border: 2px solid var(--border); border-radius: 8px; background: #0f172a; color: #fff; outline: none; padding: 5px 0; }
+        .score-in:focus { border-color: var(--accent); background: #1e293b; }
         
-        .pts-label { color: var(--accent); font-size: 10px; font-weight: bold; display: block; margin-top: 2px; }
-        .si-label { color: #fbbf24; font-size: 10px; font-weight: 800; }
+        .pts-label { color: var(--accent); font-size: 10px; font-weight: bold; display: block; margin-top: 4px; }
+        .si-label { color: #fbbf24; font-size: 9px; font-weight: 800; display: block; margin-bottom: 2px; }
+        .dist-label { color: #10b981; font-size: 10px; font-weight: bold; display: block; margin-top: 2px; }
         .par-label { color: var(--text-muted); font-size: 10px; }
         
         .total-row { background: var(--accent) !important; color: #0f172a !important; font-weight: 900; font-size: 16px; }
         
-        .history-section { padding: 15px; background: #0f172a; margin-top: 20px; }
-        .history-item { background: #1e293b; padding: 15px; border-radius: 8px; margin-bottom: 12px; border-left: 5px solid var(--accent); cursor: pointer; position: relative; transition: transform 0.1s; }
-        .history-item:active { transform: scale(0.98); background: #334155; }
+        .history-section { padding: 15px; background: #0f172a; margin-top: 20px; border-top: 1px solid var(--border); }
+        .history-item { background: #1e293b; padding: 15px; border-radius: 8px; margin-bottom: 12px; border-left: 5px solid var(--accent); cursor: pointer; position: relative; }
         .history-item small { color: var(--accent); text-transform: uppercase; font-weight: bold; font-size: 10px; }
-        .load-badge { position: absolute; right: 10px; top: 15px; background: var(--accent); color: #000; font-size: 9px; padding: 3px 6px; border-radius: 4px; font-weight: bold; }
+        .load-badge { position: absolute; right: 10px; top: 18px; background: var(--accent); color: #000; font-size: 9px; padding: 4px 8px; border-radius: 4px; font-weight: 900; }
     </style>
 </head>
 <body>
 
 <div class="brand-header">
     <div class="logo-container">
-        <div class="logo-icon"></div>
+        <div class="golf-flag">
+            <div class="flag-pole"></div>
+            <div class="flag-top"></div>
+            <div class="hole-circle"></div>
+        </div>
         <div class="main-title">PIN<span>SEEKER</span></div>
     </div>
 </div>
@@ -79,48 +82,48 @@
 <div id="app"></div>
 
 <div class="history-section">
-    <h3 style="color:var(--accent); text-transform: uppercase; letter-spacing: 1px;">Round Archives</h3>
+    <h3 style="color:var(--accent); text-transform: uppercase; letter-spacing: 1px; font-size: 12px;">Saved Rounds</h3>
     <div id="history-list"></div>
 </div>
 
 <script>
     const COURSE_LIBRARY = {
         "Gullane No 1": {
-            "Championship": { "pars": [4,4,5,3,4,4,4,4,3,4,4,5,3,4,5,3,4,4], "si": [14,4,8,18,1,16,6,10,12,7,2,11,15,3,9,13,5,17] },
-            "White": { "pars": [4,4,5,3,4,4,4,4,3,4,4,5,3,4,5,3,4,4], "si": [14,4,8,18,1,16,6,10,12,7,2,11,15,3,9,13,5,17] },
-            "Yellow": { "pars": [4,4,5,3,4,4,4,4,3,4,4,5,3,4,5,3,4,4], "si": [14,4,8,18,1,16,6,10,12,7,2,11,15,3,9,13,5,17] },
-            "Red": { "pars": [4,4,5,3,5,4,4,4,3,5,4,5,3,5,5,3,4,4], "si": [14,4,8,18,2,16,6,10,12,7,1,11,15,9,3,13,5,17] }
+            "Championship": { "dist": [302,412,523,164,450,337,398,471,194,466,471,480,178,478,580,194,390,385], "pars": [4,4,5,3,4,4,4,4,3,4,4,5,3,4,5,3,4,4], "si": [14,4,8,18,1,16,6,10,12,7,2,11,15,3,9,13,5,17] },
+            "White": { "dist": [302,379,496,144,450,324,398,414,151,466,471,480,170,435,537,186,390,355], "pars": [4,4,5,3,4,4,4,4,3,4,4,5,3,4,5,3,4,4], "si": [14,4,8,18,1,16,6,10,12,7,2,11,15,3,9,13,5,17] },
+            "Yellow": { "dist": [287,334,479,134,436,299,398,398,141,434,427,423,160,409,487,177,390,338], "pars": [4,4,5,3,4,4,4,4,3,4,4,5,3,4,5,3,4,4], "si": [14,4,8,18,1,16,6,10,12,7,2,11,15,3,9,13,5,17] },
+            "Red": { "dist": [280,340,471,127,420,289,392,351,134,398,420,413,135,406,466,166,379,316], "pars": [4,4,5,3,5,4,4,4,3,5,4,5,3,5,5,3,4,4], "si": [14,4,8,18,2,16,6,10,12,7,1,11,15,9,3,13,5,17] }
         },
         "Gullane No 2": {
-            "White": { "pars": [4,4,4,4,3,5,4,4,4,4,3,4,4,4,3,5,4,4], "si": [5,15,17,1,9,13,7,3,11,12,10,4,2,8,14,6,16,18] },
-            "Yellow": { "pars": [4,4,4,4,3,5,4,4,4,4,3,4,4,4,3,5,4,4], "si": [5,15,17,1,9,13,7,3,11,12,10,4,2,8,14,6,16,18] },
-            "Red": { "pars": [4,4,4,5,3,5,4,4,4,4,4,5,4,4,3,5,4,4], "si": [3,9,17,5,13,15,1,11,7,6,10,18,2,12,14,4,8,16] }
+            "White": { "dist": [366,334,237,454,197,537,375,393,354,381,215,419,400,366,175,527,361,305], "pars": [4,4,4,4,3,5,4,4,4,4,3,4,4,4,3,5,4,4], "si": [5,15,17,1,9,13,7,3,11,12,10,4,2,8,14,6,16,18] },
+            "Yellow": { "dist": [356,326,233,425,171,498,358,352,347,340,194,408,384,336,167,471,358,291], "pars": [4,4,4,4,3,5,4,4,4,4,3,4,4,4,3,5,4,4], "si": [5,15,17,1,9,13,7,3,11,12,10,4,2,8,14,6,16,18] },
+            "Red": { "dist": [349,320,226,418,146,429,345,309,343,314,169,372,305,293,151,449,349,279], "pars": [4,4,4,5,3,5,4,4,4,4,4,5,4,4,3,5,4,4], "si": [3,9,17,5,13,15,1,11,7,6,10,18,2,12,14,4,8,16] }
         },
         "Gullane No 3": {
-            "White": { "pars": [4,3,4,4,4,4,4,3,4,4,3,4,3,5,3,4,4,4], "si": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18] }
+            "White": { "dist": [341,144,293,250,314,342,311,165,327,450,135,371,186,443,169,379,328,304], "pars": [4,3,4,4,4,4,4,3,4,4,3,4,3,5,3,4,4,4], "si": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18] }
         },
         "Kilspindie": {
-            "White": { "pars": [3,5,4,4,4,4,4,3,4,3,4,4,3,4,4,4,4,4], "si": [13,5,1,9,15,17,3,11,7,10,18,8,12,4,2,14,6,16] },
-            "Yellow": { "pars": [3,5,4,4,4,4,4,3,4,3,4,4,3,4,4,4,4,4], "si": [13,5,1,9,15,17,3,11,7,10,18,8,12,4,2,14,6,16] },
-            "Red": { "pars": [3,5,4,4,4,4,4,3,4,3,4,4,3,4,4,4,4,4], "si": [13,5,1,9,15,17,3,11,7,10,18,8,12,4,2,14,6,16] }
+            "White": { "dist": [158,516,411,369,290,280,382,167,308,152,294,269,182,340,436,411,279,250], "pars": [3,5,4,4,4,4,4,3,4,3,4,4,3,4,4,4,4,4], "si": [13,5,1,9,15,17,3,11,7,10,18,8,12,4,2,14,6,16] },
+            "Yellow": { "dist": [150,506,384,332,272,268,363,151,298,142,282,264,168,325,422,384,270,228], "pars": [3,5,4,4,4,4,4,3,4,3,4,4,3,4,4,4,4,4], "si": [13,5,1,9,15,17,3,11,7,10,18,8,12,4,2,14,6,16] },
+            "Red": { "dist": [148,492,368,337,279,268,350,147,292,142,264,264,149,295,420,376,262,239], "pars": [3,5,4,4,4,4,4,3,4,3,4,4,3,4,4,4,4,4], "si": [13,5,1,9,15,17,3,11,7,10,18,8,12,4,2,14,6,16] }
         },
         "North Berwick": {
-            "Black": { "pars": [4,4,4,3,4,3,4,5,5,3,5,4,4,4,3,4,4,4], "si": [13,7,3,11,1,17,5,15,9,16,10,6,2,12,14,8,4,18] },
-            "White": { "pars": [4,4,4,3,4,3,4,5,5,3,5,4,4,4,3,4,4,4], "si": [13,7,3,11,1,17,5,15,9,16,10,6,2,12,14,8,4,18] },
-            "Red": { "pars": [4,5,5,3,4,3,4,5,5,3,5,5,4,4,3,4,5,4], "si": [13,15,5,9,1,17,3,11,7,16,10,6,8,2,12,4,14,18] }
+            "Black": { "dist": [342,433,474,177,372,181,366,532,522,172,549,426,388,375,189,378,426,277], "pars": [4,4,4,3,4,3,4,5,5,3,5,4,4,4,3,4,4,4], "si": [13,7,3,11,1,17,5,15,9,16,10,6,2,12,14,8,4,18] },
+            "White": { "dist": [342,433,459,177,372,161,366,509,522,172,549,402,388,375,189,378,426,277], "pars": [4,4,4,3,4,3,4,5,5,3,5,4,4,4,3,4,4,4], "si": [13,7,3,11,1,17,5,15,9,16,10,6,2,12,14,8,4,18] },
+            "Red": { "dist": [302,406,430,163,316,125,326,427,424,145,478,352,333,344,173,370,417,244], "pars": [4,5,5,3,4,3,4,5,5,3,5,5,4,4,3,4,5,4], "si": [13,15,5,9,1,17,3,11,7,16,10,6,8,2,12,4,14,18] }
         },
         "The Glen": {
-            "White": { "pars": [4,4,4,3,4,5,4,4,3,4,4,4,3,4,5,3,4,4], "si": [9,13,7,17,3,1,15,5,11,10,14,2,16,6,18,8,4,12] },
-            "Yellow": { "pars": [4,4,4,3,4,5,4,4,3,4,4,4,3,4,5,3,4,4], "si": [9,13,7,17,3,1,15,5,11,10,14,2,16,6,18,8,4,12] },
-            "Red": { "pars": [4,4,4,3,4,5,4,4,4,4,4,5,3,4,5,3,5,4], "si": [7,9,11,15,3,1,13,5,18,2,14,12,17,4,8,10,16,6] }
+            "White": { "dist": [332,372,366,180,386,536,375,425,204,346,341,458,148,365,473,190,415,363], "pars": [4,4,4,3,4,5,4,4,3,4,4,4,3,4,5,3,4,4], "si": [9,13,7,17,3,1,15,5,11,10,14,2,16,6,18,8,4,12] },
+            "Yellow": { "dist": [330,361,343,178,368,488,364,409,200,344,336,448,136,333,467,186,394,363], "pars": [4,4,4,3,4,5,4,4,3,4,4,4,3,4,5,3,4,4], "si": [9,13,7,17,3,1,15,5,11,10,14,2,16,6,18,8,4,12] },
+            "Red": { "dist": [327,343,334,162,354,467,360,379,197,340,319,432,128,321,399,179,374,358], "pars": [4,4,4,3,4,5,4,4,4,4,4,5,3,4,5,3,5,4], "si": [7,9,11,15,3,1,13,5,18,2,14,12,17,4,8,10,16,6] }
         }
     };
 
-    let golfData = JSON.parse(localStorage.getItem("PINSEEKER_V2_7")) || {
+    let golfData = JSON.parse(localStorage.getItem("PINSEEKER_V2_9")) || {
         course: "", tee: "", players: [], history: []
     };
 
-    function save() { localStorage.setItem("PINSEEKER_V2_7", JSON.stringify(golfData)); }
+    function save() { localStorage.setItem("PINSEEKER_V2_9", JSON.stringify(golfData)); }
 
     function populateTees() {
         const cName = document.getElementById('courseSelect').value;
@@ -144,7 +147,7 @@
     }
 
     function addPlayer() {
-        const name = prompt("Enter Player Name:");
+        const name = prompt("Player Name:");
         const hcp = prompt("Handicap:", "0");
         if (name) {
             golfData.players.push({ name, hcp: parseInt(hcp) || 0, scores: new Array(18).fill(0) });
@@ -176,8 +179,8 @@
             players: JSON.parse(JSON.stringify(golfData.players))
         };
         golfData.history.unshift(roundToArchive);
-        alert("Round Archived to History!");
         save(); render();
+        alert("Round Archived!");
     }
 
     function loadArchivedRound(idx) {
@@ -198,18 +201,18 @@
         let body = `PINSEEKER ROUND REPORT\nCourse: ${golfData.course} (${golfData.tee})\n\n`;
         golfData.players.forEach(p => {
             let total = 0;
-            let holeDetail = p.scores.map((s, i) => {
+            let detail = p.scores.map((s, i) => {
                 let pts = calcStableford(p, i);
                 total += pts;
                 return `H${i+1}: ${s||'X'} (${pts}pts)`;
             });
-            body += `${p.name} (HCP ${p.hcp}): TOTAL ${total} pts\n${holeDetail.join(', ')}\n\n`;
+            body += `${p.name} (HCP ${p.hcp}): TOTAL ${total} pts\n${detail.join(', ')}\n\n`;
         });
         window.location.href = `mailto:?subject=Golf Scores: ${golfData.course}&body=${encodeURIComponent(body)}`;
     }
 
     function clearCurrent() {
-        if (confirm("Clear current scorecard?")) {
+        if (confirm("Reset current scorecard?")) {
             golfData.players = [];
             save(); render();
         }
@@ -218,20 +221,20 @@
     function render() {
         const app = document.getElementById('app');
         if (golfData.players.length === 0) {
-            app.innerHTML = '<div style="text-align:center; padding:60px 20px; color:var(--text-muted);"><h3>No Active Round</h3><p>Select a course and add players to start.</p></div>';
+            app.innerHTML = '<div style="text-align:center; padding:80px 20px; color:var(--text-muted);"><h3>Welcome to PinSeeker</h3><p>Select a course and add players to begin tracking.</p></div>';
         } else {
             const cData = COURSE_LIBRARY[golfData.course][golfData.tee];
             let html = `<div class="card"><table><tr><th>Hole</th>`;
             golfData.players.forEach(p => html += `<th>${p.name.substring(0,6)}</th>`);
             html += `</tr>`;
             for (let i = 0; i < 18; i++) {
-                html += `<tr><td><span class="si-label">SI ${cData.si[i]}</span><br><strong>H${i+1}</strong><br><span class="par-label">P${cData.pars[i]}</span></td>`;
+                html += `<tr><td><span class="si-label">SI ${cData.si[i]}</span><strong>H${i+1}</strong><br><span class="par-label">P${cData.pars[i]}</span><br><span class="dist-label">${cData.dist[i]}y</span></td>`;
                 golfData.players.forEach((p, pIdx) => {
                     html += `<td><input type="number" pattern="[0-9]*" inputmode="numeric" class="score-in" value="${p.scores[i] || ''}" onchange="updateScore(${pIdx}, ${i}, this.value)"><span class="pts-label">${calcStableford(p, i)} pts</span></td>`;
                 });
                 html += `</tr>`;
             }
-            html += `<tr class="total-row"><td>TOTAL</td>`;
+            html += `<tr class="total-row"><td>STB</td>`;
             golfData.players.forEach(p => {
                 const total = p.scores.reduce((sum, _, idx) => sum + calcStableford(p, idx), 0);
                 html += `<td>${total}</td>`;
@@ -248,10 +251,10 @@
                 <strong style="color:#fff;">${h.course}</strong> (${h.tee})<br>
                 <span style="font-size:11px; color:var(--text-muted);">${h.players.map(p => p.name).join(', ')}</span>
             </div>
-        `).join('') || '<p style="color:var(--text-muted);">No archived rounds yet.</p>';
+        `).join('') || '<p style="color:var(--text-muted); font-size:11px;">No saved rounds.</p>';
     }
 
-    // Initialize
+    // Init
     const cs = document.getElementById('courseSelect');
     Object.keys(COURSE_LIBRARY).sort().forEach(c => {
         let opt = document.createElement('option'); opt.value = c; opt.innerText = c;
